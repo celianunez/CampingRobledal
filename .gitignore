@@ -1,0 +1,18 @@
+# Visual Studio / .NET
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.userprefs
+*.cache
+TestResults/
+packages/
+
+# SO
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Entregas generadas
+*.zip

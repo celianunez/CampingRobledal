@@ -1,0 +1,18 @@
+Camping El Robledal · Gestión
+Práctica de Interacción Persona-Ordenador I (21757) - Curso 2026/27
+ESI Ciudad Real (UCLM) - Grupo de laboratorio A
+
+Integrantes:
+  - Adam Gouram El Bouhali
+  - Celia Núñez Acosta
+
+Cómo ejecutarlo:
+  Abrir CampingRobledal.sln con Visual Studio 2026 Community y ejecutar (F5).
+
+Usuarios de prueba:
+  Usuario: adam     Contraseña: ipo1
+  Usuario: celia    Contraseña: ipo1
+
+Notas:
+  - Prototipo sin persistencia: los datos de prueba se cargan al arrancar
+    y los cambios se pierden al cerrar la aplicación.
