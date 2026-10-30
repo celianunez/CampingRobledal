@@ -1,0 +1,56 @@
+﻿<Window x:Class="CampingRobledal.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:monitores="clr-namespace:CampingRobledal.Monitores"
+        mc:Ignorable="d"
+        Title="Camping El Robledal · Gestión · Prueba de Monitores"
+        Width="1280"
+        Height="840"
+        MinWidth="1060"
+        MinHeight="680"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource ColorFondo}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Cabecera provisional solo para probar el control; la definitiva la hace Adam. -->
+        <Border Grid.Row="0"
+                Background="{StaticResource ColorPrimario}"
+                Padding="20,12">
+            <DockPanel LastChildFill="True">
+                <TextBlock DockPanel.Dock="Right"
+                           Text="Ventana de pruebas · Celia"
+                           Foreground="{StaticResource ColorBlanco}"
+                           FontFamily="{StaticResource FuenteApp}"
+                           FontSize="12"
+                           VerticalAlignment="Center"
+                           Opacity="0.85" />
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="Camping El Robledal · Gestión"
+                               Foreground="{StaticResource ColorBlanco}"
+                               FontFamily="{StaticResource FuenteApp}"
+                               FontSize="18"
+                               FontWeight="SemiBold"
+                               VerticalAlignment="Center" />
+                    <Border Background="#33FFFFFF"
+                            CornerRadius="10"
+                            Padding="10,3"
+                            Margin="16,0,0,0">
+                        <TextBlock Text="Prueba de la pestaña Monitores"
+                                   Foreground="{StaticResource ColorBlanco}"
+                                   FontFamily="{StaticResource FuenteApp}"
+                                   FontSize="12" />
+                    </Border>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <monitores:MonitoresView x:Name="vistaMonitores" Grid.Row="1" />
+    </Grid>
+</Window>

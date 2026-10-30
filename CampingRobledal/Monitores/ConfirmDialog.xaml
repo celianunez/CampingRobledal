@@ -1,0 +1,81 @@
+<Window x:Class="CampingRobledal.Monitores.ConfirmDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Confirmar acción"
+        Width="540"
+        MinWidth="480"
+        MaxWidth="620"
+        SizeToContent="Height"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        Background="{StaticResource ColorFondo}"
+        FontFamily="{StaticResource FuenteApp}">
+
+    <Grid Margin="22">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="56" />
+                <ColumnDefinition Width="16" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" Width="56" Height="56" VerticalAlignment="Top">
+                <Ellipse Fill="#FDECEA"
+                         Stroke="{StaticResource ColorPeligro}"
+                         StrokeThickness="2.5" />
+                <TextBlock Text="!"
+                           FontFamily="{StaticResource FuenteApp}"
+                           FontSize="32"
+                           FontWeight="Bold"
+                           Foreground="{StaticResource ColorPeligro}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Margin="0,-4,0,0" />
+            </Grid>
+
+            <StackPanel Grid.Column="2">
+                <TextBlock x:Name="lblPregunta"
+                           FontFamily="{StaticResource FuenteApp}"
+                           FontSize="17"
+                           FontWeight="Bold"
+                           Foreground="{StaticResource ColorTexto}"
+                           TextWrapping="Wrap" />
+                <TextBlock x:Name="lblExplicacion"
+                           Style="{StaticResource TextoNormal}"
+                           TextWrapping="Wrap"
+                           LineHeight="20"
+                           Margin="0,9,0,0" />
+            </StackPanel>
+        </Grid>
+
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="0,22,0,0">
+            <Button x:Name="btnCancelar"
+                    Content="Cancelar"
+                    Style="{StaticResource BotonNeutro}"
+                    IsCancel="True"
+                    IsDefault="True"
+                    MinWidth="104"
+                    Margin="0,0,8,0"
+                    ToolTip="Cancela la acción y vuelve sin cambios (Esc)" />
+            <Button x:Name="btnAccion"
+                    Content="Eliminar"
+                    Style="{StaticResource BotonPeligro}"
+                    MinWidth="112"
+                    Margin="0"
+                    Click="btnAccion_Click"
+                    ToolTip="Confirma la acción. No se puede deshacer" />
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,322 @@
+<Window x:Class="CampingRobledal.Monitores.MonitorDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Nuevo monitor"
+        Width="860"
+        Height="780"
+        MinWidth="800"
+        MinHeight="660"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="CanResize"
+        ShowInTaskbar="False"
+        Background="{StaticResource ColorFondo}"
+        FontFamily="{StaticResource FuenteApp}">
+
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ScrollViewer Grid.Row="0"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled"
+                      Padding="0,0,8,0">
+            <StackPanel>
+
+                <!-- ===================== Foto y datos principales ===================== -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="176" />
+                        <ColumnDefinition Width="16" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <Border Width="160"
+                                Height="190"
+                                Background="{StaticResource ColorPrimarioClaro}"
+                                BorderBrush="{StaticResource ColorBorde}"
+                                BorderThickness="1"
+                                HorizontalAlignment="Left"
+                                ClipToBounds="True">
+                            <Grid>
+                                <Image Source="/imagenes/monitores/silueta.png"
+                                       Stretch="Uniform" />
+                                <Image x:Name="imgFoto"
+                                       Stretch="UniformToFill"
+                                       Visibility="Collapsed" />
+                            </Grid>
+                        </Border>
+                        <Button x:Name="btnCargarFoto"
+                                Content="Cargar foto…"
+                                Style="{StaticResource BotonNeutro}"
+                                Width="160"
+                                Margin="0,8,0,0"
+                                Click="btnCargarFoto_Click"
+                                ToolTip="Elige una imagen JPG, PNG, BMP o GIF para la ficha" />
+                        <TextBlock Text="JPG o PNG"
+                                   Style="{StaticResource TextoAyuda}"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,4,0,0" />
+                    </StackPanel>
+
+                    <Grid Grid.Column="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="132" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <!-- Nombre -->
+                        <TextBlock Grid.Row="0" Grid.Column="0"
+                                   Text="Nombre *"
+                                   Style="{StaticResource TextoNormal}"
+                                   VerticalAlignment="Top"
+                                   Margin="0,8,0,0"
+                                   HorizontalAlignment="Right" />
+                        <StackPanel Grid.Row="0" Grid.Column="2" Margin="0,0,0,10">
+                            <TextBox x:Name="txtNombre"
+                                     TextChanged="CampoTexto_TextChanged"
+                                     LostFocus="CampoTexto_LostFocus"
+                                     ToolTip="Nombre del monitor. Obligatorio. Ejemplo: Laura" />
+                            <TextBlock x:Name="lblErrorNombre"
+                                       Style="{StaticResource TextoError}"
+                                       Visibility="Collapsed" />
+                        </StackPanel>
+
+                        <!-- Apellidos -->
+                        <TextBlock Grid.Row="1" Grid.Column="0"
+                                   Text="Apellidos *"
+                                   Style="{StaticResource TextoNormal}"
+                                   VerticalAlignment="Top"
+                                   Margin="0,8,0,0"
+                                   HorizontalAlignment="Right" />
+                        <StackPanel Grid.Row="1" Grid.Column="2" Margin="0,0,0,10">
+                            <TextBox x:Name="txtApellidos"
+                                     TextChanged="CampoTexto_TextChanged"
+                                     LostFocus="CampoTexto_LostFocus"
+                                     ToolTip="Apellidos del monitor. Obligatorio. Ejemplo: Sánchez Gil" />
+                            <TextBlock x:Name="lblErrorApellidos"
+                                       Style="{StaticResource TextoError}"
+                                       Visibility="Collapsed" />
+                        </StackPanel>
+
+                        <!-- Especialidad -->
+                        <TextBlock Grid.Row="2" Grid.Column="0"
+                                   Text="Especialidad"
+                                   Style="{StaticResource TextoNormal}"
+                                   VerticalAlignment="Top"
+                                   Margin="0,8,0,0"
+                                   HorizontalAlignment="Right" />
+                        <ComboBox Grid.Row="2" Grid.Column="2"
+                                  x:Name="cmbEspecialidad"
+                                  Margin="0,0,0,10"
+                                  ToolTip="Especialidad principal del monitor" />
+
+                        <!-- Teléfonos -->
+                        <TextBlock Grid.Row="3" Grid.Column="0"
+                                   Text="Teléfono(s) *"
+                                   Style="{StaticResource TextoNormal}"
+                                   VerticalAlignment="Top"
+                                   Margin="0,8,0,0"
+                                   HorizontalAlignment="Right" />
+                        <StackPanel Grid.Row="3" Grid.Column="2" Margin="0,0,0,10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="8" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0"
+                                         x:Name="txtTelefono1"
+                                         TextChanged="CampoTexto_TextChanged"
+                                         LostFocus="CampoTexto_LostFocus"
+                                         ToolTip="Teléfono principal. Obligatorio: 9 cifras. Ejemplo: 612345678" />
+                                <TextBox Grid.Column="2"
+                                         x:Name="txtTelefono2"
+                                         TextChanged="CampoTexto_TextChanged"
+                                         LostFocus="CampoTexto_LostFocus"
+                                         ToolTip="Segundo teléfono, opcional. Si lo escribes, debe tener 9 cifras" />
+                            </Grid>
+                            <TextBlock x:Name="lblErrorTelefono"
+                                       Style="{StaticResource TextoError}"
+                                       Visibility="Collapsed" />
+                        </StackPanel>
+
+                        <!-- E-mail -->
+                        <TextBlock Grid.Row="4" Grid.Column="0"
+                                   Text="E-mail(s)"
+                                   Style="{StaticResource TextoNormal}"
+                                   VerticalAlignment="Top"
+                                   Margin="0,8,0,0"
+                                   HorizontalAlignment="Right" />
+                        <StackPanel Grid.Row="4" Grid.Column="2">
+                            <TextBox x:Name="txtEmail"
+                                     TextChanged="CampoTexto_TextChanged"
+                                     LostFocus="CampoTexto_LostFocus"
+                                     ToolTip="Correo electrónico, opcional. Formato: nombre@dominio.es" />
+                            <TextBlock x:Name="lblErrorEmail"
+                                       Style="{StaticResource TextoError}"
+                                       Visibility="Collapsed" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+
+                <!-- ===================== Idiomas ===================== -->
+                <GroupBox Header="Idiomas" Margin="0,16,0,12">
+                    <WrapPanel>
+                        <CheckBox x:Name="chkEspanol" Content="Español"
+                                  ToolTip="Marca si el monitor habla español" />
+                        <CheckBox x:Name="chkIngles" Content="Inglés"
+                                  ToolTip="Marca si el monitor habla inglés" />
+                        <CheckBox x:Name="chkFrances" Content="Francés"
+                                  ToolTip="Marca si el monitor habla francés" />
+                        <CheckBox x:Name="chkAleman" Content="Alemán"
+                                  ToolTip="Marca si el monitor habla alemán" />
+                        <CheckBox x:Name="chkItaliano" Content="Italiano"
+                                  ToolTip="Marca si el monitor habla italiano" />
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <TextBlock Text="Otro:"
+                                       Style="{StaticResource TextoNormal}"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,6,0" />
+                            <TextBox x:Name="txtOtroIdioma"
+                                     Width="160"
+                                     ToolTip="Otros idiomas separados por comas. Ejemplo: Portugués, Catalán" />
+                        </StackPanel>
+                    </WrapPanel>
+                </GroupBox>
+
+                <!-- ===================== Formación ===================== -->
+                <TextBlock Text="Formación"
+                           Style="{StaticResource TextoNormal}"
+                           FontWeight="SemiBold"
+                           Margin="0,0,0,4" />
+                <TextBox x:Name="txtFormacion"
+                         Height="72"
+                         AcceptsReturn="True"
+                         TextWrapping="Wrap"
+                         VerticalScrollBarVisibility="Auto"
+                         VerticalContentAlignment="Top"
+                         Margin="0,0,0,12"
+                         ToolTip="Titulación, cursos y cursos de primeros auxilios del monitor" />
+
+                <!-- ===================== Disponibilidad ===================== -->
+                <GroupBox Header="Disponibilidad">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="160" />
+                            <ColumnDefinition Width="24" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="160" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0"
+                                   Text="Contrato desde *"
+                                   Style="{StaticResource TextoNormal}"
+                                   VerticalAlignment="Center" />
+                        <DatePicker Grid.Row="0" Grid.Column="2"
+                                    x:Name="dpContratoDesde"
+                                    SelectedDateChanged="CampoFecha_Changed"
+                                    LostFocus="CampoFecha_LostFocus"
+                                    ToolTip="Primer día del contrato. Obligatorio" />
+                        <TextBlock Grid.Row="0" Grid.Column="4"
+                                   Text="hasta *"
+                                   Style="{StaticResource TextoNormal}"
+                                   VerticalAlignment="Center" />
+                        <DatePicker Grid.Row="0" Grid.Column="6"
+                                    x:Name="dpContratoHasta"
+                                    SelectedDateChanged="CampoFecha_Changed"
+                                    LostFocus="CampoFecha_LostFocus"
+                                    ToolTip="Último día del contrato. Obligatorio y no anterior al inicio" />
+
+                        <TextBlock Grid.Row="1" Grid.Column="2"
+                                   x:Name="lblErrorContratoDesde"
+                                   Style="{StaticResource TextoError}"
+                                   Visibility="Collapsed" />
+                        <TextBlock Grid.Row="1" Grid.Column="6"
+                                   x:Name="lblErrorContratoHasta"
+                                   Style="{StaticResource TextoError}"
+                                   Visibility="Collapsed" />
+
+                        <TextBlock Grid.Row="2" Grid.Column="0"
+                                   Text="Restricciones"
+                                   Style="{StaticResource TextoNormal}"
+                                   VerticalAlignment="Top"
+                                   Margin="0,16,0,0" />
+                        <Grid Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="6" Margin="0,12,0,0">
+                            <TextBox x:Name="txtRestricciones"
+                                     Height="54"
+                                     AcceptsReturn="True"
+                                     TextWrapping="Wrap"
+                                     VerticalScrollBarVisibility="Auto"
+                                     VerticalContentAlignment="Top"
+                                     TextChanged="txtRestricciones_TextChanged"
+                                     ToolTip="Días o franjas en las que el monitor no está disponible" />
+                            <TextBlock x:Name="lblEjemploRestricciones"
+                                       Text="Ej.: no disponible del 1 al 10 de agosto"
+                                       Foreground="{StaticResource ColorTextoSecundario}"
+                                       Margin="10,8,0,0"
+                                       VerticalAlignment="Top"
+                                       IsHitTestVisible="False" />
+                        </Grid>
+                    </Grid>
+                </GroupBox>
+
+                <TextBlock Text="Los campos marcados con * son obligatorios."
+                           Style="{StaticResource TextoAyuda}"
+                           Margin="0,4,0,0" />
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- ===================== Botones ===================== -->
+        <Border Grid.Row="1"
+                BorderBrush="{StaticResource ColorBorde}"
+                BorderThickness="0,1,0,0"
+                Padding="0,12,0,0"
+                Margin="0,12,0,0">
+            <DockPanel>
+                <Button x:Name="btnGuardar"
+                        DockPanel.Dock="Right"
+                        Content="Guardar"
+                        Style="{StaticResource BotonPrincipal}"
+                        IsDefault="True"
+                        MinWidth="100"
+                        Margin="8,0,0,0"
+                        Click="btnGuardar_Click"
+                        ToolTip="Guarda el monitor si todos los datos son correctos" />
+                <Button x:Name="btnCancelar"
+                        DockPanel.Dock="Right"
+                        Content="Cancelar"
+                        Style="{StaticResource BotonNeutro}"
+                        IsCancel="True"
+                        MinWidth="100"
+                        Margin="0"
+                        ToolTip="Cierra sin guardar los cambios (Esc)" />
+                <TextBlock Text="* Campos obligatorios"
+                           Style="{StaticResource TextoAyuda}"
+                           VerticalAlignment="Center" />
+            </DockPanel>
+        </Border>
+    </Grid>
+</Window>

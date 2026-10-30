@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>CampingRobledal</RootNamespace>
+    <AssemblyName>CampingRobledal</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="imagenes\monitores\silueta.png" />
+  </ItemGroup>
+
+</Project>

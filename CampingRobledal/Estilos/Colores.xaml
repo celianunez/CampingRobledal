@@ -1,0 +1,21 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Paleta de docs/guia-estilo.md -->
+    <SolidColorBrush x:Key="ColorPrimario" Color="#2E6B3F" />
+    <SolidColorBrush x:Key="ColorPrimarioClaro" Color="#E8F1EA" />
+    <SolidColorBrush x:Key="ColorAcento" Color="#B5703A" />
+    <SolidColorBrush x:Key="ColorFondo" Color="#FAFAF7" />
+    <SolidColorBrush x:Key="ColorTexto" Color="#222222" />
+    <SolidColorBrush x:Key="ColorTextoSecundario" Color="#666666" />
+    <SolidColorBrush x:Key="ColorPeligro" Color="#C62828" />
+    <SolidColorBrush x:Key="ColorExito" Color="#2E7D32" />
+    <SolidColorBrush x:Key="ColorBorde" Color="#D8D8D2" />
+    <SolidColorBrush x:Key="ColorFilaAlterna" Color="#FAFAF7" />
+    <SolidColorBrush x:Key="ColorSeleccion" Color="#DCEBE0" />
+    <SolidColorBrush x:Key="ColorFondoFicha" Color="#F4F8F5" />
+    <SolidColorBrush x:Key="ColorBlanco" Color="#FFFFFF" />
+
+    <FontFamily x:Key="FuenteApp">Segoe UI</FontFamily>
+
+</ResourceDictionary>
