@@ -1,0 +1,58 @@
+<Window x:Class="CampingRobledal.VentanaLogin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Camping El Robledal · Gestión" Width="480" Height="560" MinWidth="420" MinHeight="520"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource ColorFondo}" FontFamily="{StaticResource FuentePrincipal}"
+        FontSize="{StaticResource TamanoTexto}">
+    <Grid Margin="40,24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="1">
+            <!-- Logo provisional (no hay imagen todavía): círculo con el roble -->
+            <Border x:Name="imgLogo" Width="72" Height="72" CornerRadius="36" HorizontalAlignment="Center"
+                    Background="{StaticResource ColorPrimario}" ToolTip="Camping El Robledal">
+                <TextBlock Text="🌳" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <TextBlock x:Name="lblTitulo" Text="Camping El Robledal" Style="{StaticResource TituloVentana}"
+                       HorizontalAlignment="Center" Margin="0,12,0,0"/>
+            <TextBlock Text="Gestión · Iniciar sesión" Style="{StaticResource TextoAyuda}"
+                       HorizontalAlignment="Center" Margin="0,2,0,20"/>
+
+            <TextBlock Text="Usuario *" Margin="0,0,0,4"/>
+            <TextBox x:Name="txtUsuario" TabIndex="1" Height="30"
+                     ToolTip="Escribe tu usuario de gestor, p. ej. adam. Pulsa Intro para pasar a la contraseña"
+                     KeyDown="txtUsuario_KeyDown" TextChanged="Campo_TextChanged"/>
+            <TextBlock x:Name="lblErrorUsuario" Style="{StaticResource TextoError}" Margin="0,2,0,0"/>
+
+            <TextBlock Text="Contraseña *" Margin="0,12,0,4"/>
+            <Grid>
+                <PasswordBox x:Name="passContrasena" TabIndex="2" Height="30"
+                             ToolTip="Escribe tu contraseña"
+                             PasswordChanged="passContrasena_PasswordChanged"/>
+                <TextBox x:Name="txtContrasenaVisible" TabIndex="2" Height="30" Visibility="Collapsed"
+                         ToolTip="Contraseña visible" TextChanged="txtContrasenaVisible_TextChanged"/>
+            </Grid>
+            <TextBlock x:Name="lblErrorContrasena" Style="{StaticResource TextoError}" Margin="0,2,0,0"/>
+            <CheckBox x:Name="chkMostrarContrasena" Content="Mostrar contraseña" Margin="0,8,0,0" TabIndex="3"
+                      ToolTip="Muestra u oculta la contraseña mientras la escribes"
+                      Checked="chkMostrarContrasena_Cambiado" Unchecked="chkMostrarContrasena_Cambiado"/>
+
+            <Button x:Name="btnEntrar" Content="Entrar" Style="{StaticResource BotonPrincipal}" IsDefault="True"
+                    TabIndex="4" Margin="0,20,0,0" Padding="14,8" HorizontalAlignment="Stretch"
+                    ToolTip="Entrar en la aplicación (Intro)" Click="btnEntrar_Click"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,16,0,0">
+                <Button x:Name="btnAyuda" Content="Ayuda" Style="{StaticResource BotonEnlace}" TabIndex="5"
+                        ToolTip="Abrir la ayuda (F1)" Click="btnAyuda_Click"/>
+                <TextBlock Text="·" Margin="8,2" Foreground="{StaticResource ColorTextoSecundario}"/>
+                <Button x:Name="btnSalir" Content="Salir" Style="{StaticResource BotonEnlace}" TabIndex="6"
+                        ToolTip="Cerrar la aplicación" Click="btnSalir_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

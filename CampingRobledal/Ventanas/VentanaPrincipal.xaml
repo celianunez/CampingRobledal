@@ -1,0 +1,103 @@
+<Window x:Class="CampingRobledal.VentanaPrincipal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Camping El Robledal · Gestión" Width="1200" Height="760" MinWidth="1100" MinHeight="700"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource ColorFondo}" FontFamily="{StaticResource FuentePrincipal}"
+        FontSize="{StaticResource TamanoTexto}"
+        PreviewKeyDown="Window_PreviewKeyDown" Closing="Window_Closing">
+    <DockPanel>
+
+        <!-- Menú -->
+        <Menu DockPanel.Dock="Top" x:Name="mnuPrincipal" Background="White">
+            <MenuItem Header="_Archivo">
+                <MenuItem x:Name="mnuSalir" Header="_Salir" InputGestureText="Alt+F4"
+                          ToolTip="Salir de la aplicación (Alt+F4)" Click="btnSalir_Click"/>
+            </MenuItem>
+            <MenuItem Header="A_yuda">
+                <MenuItem x:Name="mnuAyuda" Header="_Ayuda" InputGestureText="F1"
+                          ToolTip="Abrir la ayuda (F1)" Click="btnAyuda_Click"/>
+                <MenuItem x:Name="mnuAcercaDe" Header="_Acerca de"
+                          ToolTip="Información sobre la aplicación" Click="mnuAcercaDe_Click"/>
+            </MenuItem>
+        </Menu>
+
+        <!-- Barra de estado -->
+        <StatusBar DockPanel.Dock="Bottom" Height="28" Background="{StaticResource ColorPrimarioClaro}">
+            <StatusBarItem>
+                <TextBlock x:Name="lblEstado" Text="Listo" ToolTip="Resultado de la última acción"/>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right">
+                <TextBlock x:Name="lblResumen" Foreground="{StaticResource ColorTextoSecundario}"
+                           ToolTip="Resumen de la pestaña actual"/>
+            </StatusBarItem>
+        </StatusBar>
+
+        <!-- Cabecera fija -->
+        <Border DockPanel.Dock="Top" Background="{StaticResource ColorPrimario}" Padding="12,8">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Foto provisional: círculo con las iniciales -->
+                <Border x:Name="imgFotoGestor" Grid.Column="0" Width="56" Height="56" CornerRadius="28"
+                        Background="{StaticResource ColorAcento}" VerticalAlignment="Center"
+                        ToolTip="Foto del gestor">
+                    <TextBlock x:Name="lblIniciales" Foreground="White" FontSize="20" FontWeight="SemiBold"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+
+                <StackPanel Grid.Column="1" Margin="12,0" VerticalAlignment="Center">
+                    <TextBlock x:Name="lblNombreGestor" Foreground="White" FontSize="16" FontWeight="SemiBold"/>
+                    <TextBlock x:Name="lblCargoGestor" Foreground="White"/>
+                    <TextBlock x:Name="lblUsuarioAcceso" Foreground="#DDEBDF" FontSize="11"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button x:Name="btnAyuda" Content="❓ Ayuda (F1)" Style="{StaticResource BotonCabecera}"
+                            ToolTip="Abrir la ayuda (F1)" Click="btnAyuda_Click"/>
+                    <Button x:Name="btnPreferencias" Content="⚙ Preferencias" Style="{StaticResource BotonCabecera}"
+                            ToolTip="Cambiar tamaño de letra y tema" Click="btnPreferencias_Click"/>
+                    <Button x:Name="btnSalir" Content="⏻ Salir" Style="{StaticResource BotonCabecera}"
+                            ToolTip="Salir de la aplicación (Alt+F4)" Click="btnSalir_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Pestañas -->
+        <TabControl x:Name="tabPrincipal" Margin="8" SelectionChanged="tabPrincipal_SelectionChanged">
+            <TabItem x:Name="tbiAlojamientos" Header="🏕 Alojamientos" ToolTip="Parcelas y bungalows">
+                <TabControl x:Name="tabAlojamientos" Margin="4" SelectionChanged="tabPrincipal_SelectionChanged">
+                    <TabItem x:Name="tbiParcelas" Header="Parcelas" ToolTip="Gestión de parcelas">
+                        <TextBlock x:Name="lblPendienteParcelas" Style="{StaticResource TextoAyuda}"
+                                   Text="Parcelas: tabla y ficha en construcción (feature/parcelas)."
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </TabItem>
+                    <TabItem x:Name="tbiBungalows" Header="Bungalows" ToolTip="Gestión de bungalows">
+                        <TextBlock x:Name="lblPendienteBungalows" Style="{StaticResource TextoAyuda}"
+                                   Text="Bungalows: tabla y ficha en construcción (feature/bungalows)."
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+            <TabItem x:Name="tbiReservas" Header="📅 Reservas" ToolTip="Gestión de reservas">
+                <TextBlock x:Name="lblPendienteReservas" Style="{StaticResource TextoAyuda}"
+                           Text="Reservas: tabla y ficha en construcción (feature/reservas)."
+                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </TabItem>
+            <TabItem x:Name="tbiMonitores" Header="🧑‍🏫 Monitores" ToolTip="Gestión de monitores temporales">
+                <TextBlock x:Name="lblPendienteMonitores" Style="{StaticResource TextoAyuda}"
+                           Text="Monitores: tabla y ficha en construcción (feature/monitores)."
+                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </TabItem>
+            <TabItem x:Name="tbiActividades" Header="🏊 Actividades" ToolTip="Gestión de actividades de verano">
+                <TextBlock x:Name="lblPendienteActividades" Style="{StaticResource TextoAyuda}"
+                           Text="Actividades: tabla y ficha en construcción (feature/actividades)."
+                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>

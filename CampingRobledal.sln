@@ -1,0 +1,16 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-9E1F-00C04FD7AA00}") = "CampingRobledal", "CampingRobledal\CampingRobledal.csproj", "{6B1F3A52-8C1D-4E7A-9B0A-2D5C7E91A001}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6B1F3A52-8C1D-4E7A-9B0A-2D5C7E91A001}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B1F3A52-8C1D-4E7A-9B0A-2D5C7E91A001}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B1F3A52-8C1D-4E7A-9B0A-2D5C7E91A001}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B1F3A52-8C1D-4E7A-9B0A-2D5C7E91A001}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

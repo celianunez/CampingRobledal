@@ -1,0 +1,63 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="BotonNeutro" TargetType="Button">
+        <Setter Property="Padding" Value="14,6"/>
+        <Setter Property="Margin" Value="4"/>
+        <Setter Property="MinWidth" Value="90"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Foreground" Value="{StaticResource ColorTexto}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BordeNormal}"/>
+        <Setter Property="FontSize" Value="{StaticResource TamanoTexto}"/>
+        <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+
+    <Style x:Key="BotonPrincipal" TargetType="Button" BasedOn="{StaticResource BotonNeutro}">
+        <Setter Property="Background" Value="{StaticResource ColorPrimario}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderBrush" Value="{StaticResource ColorPrimario}"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="#9DB8A5"/>
+                <Setter Property="BorderBrush" Value="#9DB8A5"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="BotonPeligro" TargetType="Button" BasedOn="{StaticResource BotonNeutro}">
+        <Setter Property="Foreground" Value="{StaticResource ColorPeligro}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource ColorPeligro}"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+    </Style>
+
+    <!-- Botón de cabecera (Ayuda, Preferencias, Salir): sobre fondo verde -->
+    <Style x:Key="BotonCabecera" TargetType="Button" BasedOn="{StaticResource BotonNeutro}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderBrush" Value="White"/>
+        <Setter Property="MinWidth" Value="80"/>
+    </Style>
+
+    <!-- Enlace de texto (Ayuda y Salir del login) -->
+    <Style x:Key="BotonEnlace" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Foreground" Value="{StaticResource ColorPrimario}"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Padding" Value="4,2"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <TextBlock x:Name="texto" Text="{TemplateBinding Content}" TextDecorations="Underline"
+                               Foreground="{TemplateBinding Foreground}" Margin="{TemplateBinding Padding}"/>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="texto" Property="Foreground" Value="{StaticResource ColorAcento}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
