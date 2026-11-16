@@ -1,0 +1,215 @@
+<Window x:Class="CampingRobledal.DialogoActividad"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Actividad" Width="620" Height="780" MinWidth="480" MinHeight="420"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
+        Background="{StaticResource ColorFondo}" FontFamily="{StaticResource FuentePrincipal}"
+        FontSize="{StaticResource TamanoTexto}"
+        PreviewKeyDown="Window_PreviewKeyDown" Closing="Window_Closing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="16,12,16,0">
+        <StackPanel Grid.IsSharedSizeScope="True">
+        <GroupBox Header="Datos generales" Margin="0,0,0,10">
+            <StackPanel>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Nombre *" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Name="txtNombre" ToolTip="Nombre de la actividad, p. ej. Natación infantil" TextChanged="Campo_TextChanged" LostFocus="Campo_LostFocus"/>
+                    <TextBlock Text="p. ej. Natación infantil" Style="{StaticResource TextoAyuda}"/>
+                    <TextBlock x:Name="lblErrorNombre" Style="{StaticResource TextoError}"/>
+                </StackPanel>
+            </Grid>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Destinatarios" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <StackPanel Orientation="Horizontal">
+                        <RadioButton x:Name="rbAdultos" Content="Adultos" GroupName="Dest" Margin="0,0,14,0" ToolTip="Solo para adultos"/>
+                        <RadioButton x:Name="rbNinos" Content="Niños" GroupName="Dest" Margin="0,0,14,0" ToolTip="Solo para niños"/>
+                        <RadioButton x:Name="rbTodos" Content="Todos" GroupName="Dest" IsChecked="True" ToolTip="Para todas las edades"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Edad mínima" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Name="txtEdadMinima" ToolTip="Edad mínima en años, p. ej. 6; 0 si no hay" TextChanged="Campo_TextChanged" LostFocus="Campo_LostFocus" Width="80" HorizontalAlignment="Left"/>
+                    <TextBlock Text="años, p. ej. 6 (0 = sin mínimo)" Style="{StaticResource TextoAyuda}"/>
+                    <TextBlock x:Name="lblErrorEdadMinima" Style="{StaticResource TextoError}"/>
+                </StackPanel>
+            </Grid>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Área *" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <ComboBox x:Name="cmbArea" ToolTip="Zona del camping donde se realiza" SelectionChanged="Campo_Cambiado" Width="220" HorizontalAlignment="Left"><ComboBoxItem Content="Piscina"/><ComboBoxItem Content="Montaña"/><ComboBoxItem Content="Sala de juegos"/><ComboBoxItem Content="Pista deportiva"/><ComboBoxItem Content="Anfiteatro"/><ComboBoxItem Content="Zona infantil"/></ComboBox>
+                    <TextBlock x:Name="lblErrorArea" Style="{StaticResource TextoError}"/>
+                </StackPanel>
+            </Grid>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Monitores" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <ListBox x:Name="lstMonitores" SelectionMode="Multiple" Height="90" ToolTip="Selecciona uno o varios monitores (Ctrl+clic)" DisplayMemberPath="NombreCompleto"/>
+                    <TextBlock Text="Ctrl+clic para elegir varios" Style="{StaticResource TextoAyuda}"/>
+                </StackPanel>
+            </Grid>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Horario" Margin="0,0,0,10">
+            <StackPanel>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Días" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <WrapPanel><CheckBox x:Name="chkLunes" Content="Lun" ToolTip="Lunes" Margin="0,0,14,0"/><CheckBox x:Name="chkMartes" Content="Mar" ToolTip="Martes" Margin="0,0,14,0"/><CheckBox x:Name="chkMiercoles" Content="Mié" ToolTip="Miércoles" Margin="0,0,14,0"/><CheckBox x:Name="chkJueves" Content="Jue" ToolTip="Jueves" Margin="0,0,14,0"/><CheckBox x:Name="chkViernes" Content="Vie" ToolTip="Viernes" Margin="0,0,14,0"/><CheckBox x:Name="chkSabado" Content="Sáb" ToolTip="Sábado" Margin="0,0,14,0"/><CheckBox x:Name="chkDomingo" Content="Dom" ToolTip="Domingo" Margin="0,0,14,0"/></WrapPanel>
+                </StackPanel>
+            </Grid>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Hora de inicio *" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Name="txtHoraInicio" ToolTip="Hora de inicio, p. ej. 10:00" TextChanged="Campo_TextChanged" LostFocus="Campo_LostFocus" Width="80" HorizontalAlignment="Left"/>
+                    <TextBlock Text="p. ej. 10:00" Style="{StaticResource TextoAyuda}"/>
+                    <TextBlock x:Name="lblErrorHoraInicio" Style="{StaticResource TextoError}"/>
+                </StackPanel>
+            </Grid>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Hora de fin *" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Name="txtHoraFin" ToolTip="Hora de fin, p. ej. 11:30" TextChanged="Campo_TextChanged" LostFocus="Campo_LostFocus" Width="80" HorizontalAlignment="Left"/>
+                    <TextBlock Text="p. ej. 11:30" Style="{StaticResource TextoAyuda}"/>
+                    <TextBlock x:Name="lblErrorHoraFin" Style="{StaticResource TextoError}"/>
+                </StackPanel>
+            </Grid>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Plazas y precio" Margin="0,0,0,10">
+            <StackPanel>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Cupo mínimo *" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Name="txtCupoMinimo" ToolTip="Mínimo de inscritos para que se celebre" TextChanged="Campo_TextChanged" LostFocus="Campo_LostFocus" Width="80" HorizontalAlignment="Left"/>
+                    <TextBlock x:Name="lblErrorCupoMinimo" Style="{StaticResource TextoError}"/>
+                </StackPanel>
+            </Grid>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Cupo máximo *" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Name="txtCupoMaximo" ToolTip="Máximo de plazas" TextChanged="Campo_TextChanged" LostFocus="Campo_LostFocus" Width="80" HorizontalAlignment="Left"/>
+                    <TextBlock x:Name="lblErrorCupoMaximo" Style="{StaticResource TextoError}"/>
+                </StackPanel>
+            </Grid>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Inscritos *" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Name="txtInscritos" ToolTip="Personas inscritas ahora" TextChanged="Campo_TextChanged" LostFocus="Campo_LostFocus" Width="80" HorizontalAlignment="Left"/>
+                    <TextBlock x:Name="lblErrorInscritos" Style="{StaticResource TextoError}"/>
+                </StackPanel>
+            </Grid>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Precio por hora (€) *" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Name="txtPrecioHora" ToolTip="Precio por hora, p. ej. 5" TextChanged="Campo_TextChanged" LostFocus="Campo_LostFocus" Width="100" HorizontalAlignment="Left"/>
+                    <TextBlock Text="p. ej. 5" Style="{StaticResource TextoAyuda}"/>
+                    <TextBlock x:Name="lblErrorPrecioHora" Style="{StaticResource TextoError}"/>
+                </StackPanel>
+            </Grid>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Precio por mes (€)" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Name="txtPrecioMes" ToolTip="Precio mensual; déjalo vacío si no aplica" TextChanged="Campo_TextChanged" LostFocus="Campo_LostFocus" Width="100" HorizontalAlignment="Left"/>
+                    <TextBlock Text="Deja vacío si no aplica" Style="{StaticResource TextoAyuda}"/>
+                    <TextBlock x:Name="lblErrorPrecioMes" Style="{StaticResource TextoError}"/>
+                </StackPanel>
+            </Grid>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Descripción" Margin="0,0,0,10">
+            <StackPanel>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Descripción" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Name="txtDescripcion" ToolTip="Qué se hace en la actividad" TextChanged="Campo_TextChanged" AcceptsReturn="True" TextWrapping="Wrap" Height="60" VerticalScrollBarVisibility="Auto"/>
+                </StackPanel>
+            </Grid>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Materiales" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Name="txtMateriales" ToolTip="Material que debe traer el participante" TextChanged="Campo_TextChanged" AcceptsReturn="True" TextWrapping="Wrap" Height="60" VerticalScrollBarVisibility="Auto"/>
+                </StackPanel>
+            </Grid>
+            </StackPanel>
+        </GroupBox>
+        </StackPanel>
+        </ScrollViewer>
+        <Border Grid.Row="1" Background="{StaticResource ColorPrimarioClaro}" Padding="12,8">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Text="* obligatorio" Style="{StaticResource TextoAyuda}" VerticalAlignment="Center" Margin="0,0,16,0"/>
+                <Button x:Name="btnCancelar" Content="Cancelar" Style="{StaticResource BotonNeutro}"
+                        ToolTip="Cerrar sin guardar (Esc)" Click="btnCancelar_Click"/>
+                <Button x:Name="btnGuardar" Content="Guardar" Style="{StaticResource BotonPrincipal}" IsDefault="True" IsEnabled="False"
+                        ToolTip="Guardar los datos (Intro)" Click="btnGuardar_Click"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

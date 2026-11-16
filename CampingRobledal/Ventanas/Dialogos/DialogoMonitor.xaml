@@ -1,0 +1,192 @@
+<Window x:Class="CampingRobledal.DialogoMonitor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Monitor" Width="600" Height="720" MinWidth="480" MinHeight="420"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
+        Background="{StaticResource ColorFondo}" FontFamily="{StaticResource FuentePrincipal}"
+        FontSize="{StaticResource TamanoTexto}"
+        PreviewKeyDown="Window_PreviewKeyDown" Closing="Window_Closing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="16,12,16,0">
+        <StackPanel Grid.IsSharedSizeScope="True">
+        <GroupBox Header="Foto" Margin="0,0,0,10">
+            <StackPanel>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Foto" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <StackPanel Orientation="Horizontal">
+                        <Border Width="80" Height="80" BorderBrush="{StaticResource BordeNormal}" BorderThickness="1" Background="White">
+                            <Image x:Name="imgFoto" Stretch="UniformToFill" ToolTip="Foto del monitor"/>
+                        </Border>
+                        <Button x:Name="btnCargarFoto" Content="Cargar foto…" Style="{StaticResource BotonNeutro}" VerticalAlignment="Bottom" Margin="10,0,0,0"
+                                ToolTip="Elegir una imagen desde el disco" Click="btnCargarFoto_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Datos personales" Margin="0,0,0,10">
+            <StackPanel>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Nombre *" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Name="txtNombre" ToolTip="Nombre del monitor" TextChanged="Campo_TextChanged" LostFocus="Campo_LostFocus"/>
+                    <TextBlock x:Name="lblErrorNombre" Style="{StaticResource TextoError}"/>
+                </StackPanel>
+            </Grid>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Apellidos *" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Name="txtApellidos" ToolTip="Apellidos del monitor" TextChanged="Campo_TextChanged" LostFocus="Campo_LostFocus"/>
+                    <TextBlock x:Name="lblErrorApellidos" Style="{StaticResource TextoError}"/>
+                </StackPanel>
+            </Grid>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Especialidad" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Name="txtEspecialidad" ToolTip="Especialidad, p. ej. Natación y socorrismo" TextChanged="Campo_TextChanged"/>
+                </StackPanel>
+            </Grid>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Teléfono *" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Name="txtTelefono" ToolTip="Teléfono de 9 cifras, p. ej. 612345678" TextChanged="Campo_TextChanged" LostFocus="Campo_LostFocus" Width="140" HorizontalAlignment="Left"/>
+                    <TextBlock Text="p. ej. 612345678" Style="{StaticResource TextoAyuda}"/>
+                    <TextBlock x:Name="lblErrorTelefono" Style="{StaticResource TextoError}"/>
+                </StackPanel>
+            </Grid>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Teléfono 2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Name="txtTelefono2" ToolTip="Segundo teléfono (opcional), 9 cifras" TextChanged="Campo_TextChanged" LostFocus="Campo_LostFocus" Width="140" HorizontalAlignment="Left"/>
+                    <TextBlock Text="Opcional" Style="{StaticResource TextoAyuda}"/>
+                    <TextBlock x:Name="lblErrorTelefono2" Style="{StaticResource TextoError}"/>
+                </StackPanel>
+            </Grid>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Correo" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Name="txtCorreo" ToolTip="Correo electrónico, p. ej. nombre@correo.es" TextChanged="Campo_TextChanged" LostFocus="Campo_LostFocus"/>
+                    <TextBlock Text="p. ej. nombre@correo.es" Style="{StaticResource TextoAyuda}"/>
+                    <TextBlock x:Name="lblErrorCorreo" Style="{StaticResource TextoError}"/>
+                </StackPanel>
+            </Grid>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Correo 2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Name="txtCorreo2" ToolTip="Segundo correo (opcional)" TextChanged="Campo_TextChanged" LostFocus="Campo_LostFocus"/>
+                    <TextBlock Text="Opcional" Style="{StaticResource TextoAyuda}"/>
+                    <TextBlock x:Name="lblErrorCorreo2" Style="{StaticResource TextoError}"/>
+                </StackPanel>
+            </Grid>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Perfil profesional" Margin="0,0,0,10">
+            <StackPanel>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Idiomas" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <WrapPanel><CheckBox x:Name="chkEspanol" Content="Español" ToolTip="Habla español" Margin="0,0,14,0"/><CheckBox x:Name="chkIngles" Content="Inglés" ToolTip="Habla inglés" Margin="0,0,14,0"/><CheckBox x:Name="chkFrances" Content="Francés" ToolTip="Habla francés" Margin="0,0,14,0"/><CheckBox x:Name="chkAleman" Content="Alemán" ToolTip="Habla alemán" Margin="0,0,14,0"/></WrapPanel>
+                </StackPanel>
+            </Grid>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Formación" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Name="txtFormacion" ToolTip="Titulación o experiencia" TextChanged="Campo_TextChanged"/>
+                </StackPanel>
+            </Grid>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Contrato" Margin="0,0,0,10">
+            <StackPanel>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Inicio" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <DatePicker x:Name="dpInicioContrato" ToolTip="Primer día de contrato" SelectedDateChanged="Campo_Cambiado" LostFocus="Campo_LostFocus" Width="160" HorizontalAlignment="Left"/>
+                </StackPanel>
+            </Grid>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Fin" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <DatePicker x:Name="dpFinContrato" ToolTip="Último día de contrato (posterior al inicio)" SelectedDateChanged="Campo_Cambiado" LostFocus="Campo_LostFocus" Width="160" HorizontalAlignment="Left"/>
+                    <TextBlock x:Name="lblErrorFin" Style="{StaticResource TextoError}"/>
+                </StackPanel>
+            </Grid>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Restricciones" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Name="txtRestricciones" ToolTip="Restricciones de horario o tareas, p. ej. No puede trabajar los domingos" TextChanged="Campo_TextChanged" AcceptsReturn="True" TextWrapping="Wrap" Height="60" VerticalScrollBarVisibility="Auto"/>
+                    <TextBlock Text="p. ej. No puede trabajar los domingos" Style="{StaticResource TextoAyuda}"/>
+                </StackPanel>
+            </Grid>
+            </StackPanel>
+        </GroupBox>
+        </StackPanel>
+        </ScrollViewer>
+        <Border Grid.Row="1" Background="{StaticResource ColorPrimarioClaro}" Padding="12,8">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Text="* obligatorio" Style="{StaticResource TextoAyuda}" VerticalAlignment="Center" Margin="0,0,16,0"/>
+                <Button x:Name="btnCancelar" Content="Cancelar" Style="{StaticResource BotonNeutro}"
+                        ToolTip="Cerrar sin guardar (Esc)" Click="btnCancelar_Click"/>
+                <Button x:Name="btnGuardar" Content="Guardar" Style="{StaticResource BotonPrincipal}" IsDefault="True" IsEnabled="False"
+                        ToolTip="Guardar los datos (Intro)" Click="btnGuardar_Click"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

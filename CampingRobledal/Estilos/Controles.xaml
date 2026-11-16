@@ -16,8 +16,13 @@
     <Style TargetType="GroupBox">
         <Setter Property="Background" Value="{StaticResource ColorPrimarioClaro}"/>
         <Setter Property="Padding" Value="8"/>
-        <Setter Property="FontSize" Value="{StaticResource TamanoGrupo}"/>
-        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="HeaderTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" FontSize="{StaticResource TamanoGrupo}" FontWeight="SemiBold"/>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style TargetType="DataGrid">

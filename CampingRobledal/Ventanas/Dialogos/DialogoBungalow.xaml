@@ -1,0 +1,145 @@
+<Window x:Class="CampingRobledal.DialogoBungalow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Bungalow" Width="560" Height="640" MinWidth="480" MinHeight="420"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
+        Background="{StaticResource ColorFondo}" FontFamily="{StaticResource FuentePrincipal}"
+        FontSize="{StaticResource TamanoTexto}"
+        PreviewKeyDown="Window_PreviewKeyDown" Closing="Window_Closing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="16,12,16,0">
+        <StackPanel Grid.IsSharedSizeScope="True">
+        <GroupBox Header="Datos generales" Margin="0,0,0,10">
+            <StackPanel>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Nombre *" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Name="txtNombre" ToolTip="Nombre del bungalow, p. ej. Bungalow 3" TextChanged="Campo_TextChanged" LostFocus="Campo_LostFocus"/>
+                    <TextBlock Text="p. ej. Bungalow 3" Style="{StaticResource TextoAyuda}"/>
+                    <TextBlock x:Name="lblErrorNombre" Style="{StaticResource TextoError}"/>
+                </StackPanel>
+            </Grid>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Tipo *" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <ComboBox x:Name="cmbTipo" ToolTip="Tipo de bungalow" SelectionChanged="Campo_Cambiado" Width="220" HorizontalAlignment="Left"><ComboBoxItem Content="Estándar"/><ComboBoxItem Content="Familiar"/><ComboBoxItem Content="Premium"/></ComboBox>
+                    <TextBlock x:Name="lblErrorTipo" Style="{StaticResource TextoError}"/>
+                </StackPanel>
+            </Grid>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Estado" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <ComboBox x:Name="cmbEstado" ToolTip="Estado actual del bungalow" SelectionChanged="Campo_Cambiado" Width="220" HorizontalAlignment="Left"><ComboBoxItem Content="Libre"/><ComboBoxItem Content="Ocupado"/><ComboBoxItem Content="Reservado"/><ComboBoxItem Content="En reparación"/><ComboBoxItem Content="Pendiente de limpieza"/></ComboBox>
+                </StackPanel>
+            </Grid>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Tamaño (m²) *" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Name="txtTamano" ToolTip="Superficie en metros cuadrados, p. ej. 35" TextChanged="Campo_TextChanged" LostFocus="Campo_LostFocus" Width="100" HorizontalAlignment="Left"/>
+                    <TextBlock Text="p. ej. 35" Style="{StaticResource TextoAyuda}"/>
+                    <TextBlock x:Name="lblErrorTamano" Style="{StaticResource TextoError}"/>
+                </StackPanel>
+            </Grid>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Capacidad *" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Name="txtCapacidad" ToolTip="Número máximo de personas, p. ej. 4" TextChanged="Campo_TextChanged" LostFocus="Campo_LostFocus" Width="100" HorizontalAlignment="Left"/>
+                    <TextBlock Text="personas, p. ej. 4" Style="{StaticResource TextoAyuda}"/>
+                    <TextBlock x:Name="lblErrorCapacidad" Style="{StaticResource TextoError}"/>
+                </StackPanel>
+            </Grid>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Tarifa" Margin="0,0,0,10">
+            <StackPanel>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Precio por noche (€) *" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Name="txtPrecioNoche" ToolTip="Precio por noche, p. ej. 80" TextChanged="Campo_TextChanged" LostFocus="Campo_LostFocus" Width="100" HorizontalAlignment="Left"/>
+                    <TextBlock Text="p. ej. 80" Style="{StaticResource TextoAyuda}"/>
+                    <TextBlock x:Name="lblErrorPrecioNoche" Style="{StaticResource TextoError}"/>
+                </StackPanel>
+            </Grid>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Estancia mínima (noches)" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Name="txtEstanciaMinima" ToolTip="Noches mínimas; déjalo vacío si no hay mínimo" TextChanged="Campo_TextChanged" LostFocus="Campo_LostFocus" Width="100" HorizontalAlignment="Left"/>
+                    <TextBlock Text="Deja vacío si no hay mínimo" Style="{StaticResource TextoAyuda}"/>
+                    <TextBlock x:Name="lblErrorEstanciaMinima" Style="{StaticResource TextoError}"/>
+                </StackPanel>
+            </Grid>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Equipamiento" Margin="0,0,0,10">
+            <StackPanel>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Incluye" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <WrapPanel><CheckBox x:Name="chkAire" Content="Aire acondicionado" ToolTip="Tiene aire acondicionado" Margin="0,0,14,0"/><CheckBox x:Name="chkCocina" Content="Cocina" ToolTip="Tiene cocina" Margin="0,0,14,0"/><CheckBox x:Name="chkTerraza" Content="Terraza" ToolTip="Tiene terraza" Margin="0,0,14,0"/><CheckBox x:Name="chkBano" Content="Baño propio" ToolTip="Tiene baño propio" Margin="0,0,14,0"/></WrapPanel>
+                </StackPanel>
+            </Grid>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Descripción" Margin="0,0,0,10">
+            <StackPanel>
+            <Grid Margin="0,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Etiqueta" Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Texto" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Name="txtDescripcion" ToolTip="Descripción para el cliente" TextChanged="Campo_TextChanged" AcceptsReturn="True" TextWrapping="Wrap" Height="60" VerticalScrollBarVisibility="Auto"/>
+                </StackPanel>
+            </Grid>
+            </StackPanel>
+        </GroupBox>
+        </StackPanel>
+        </ScrollViewer>
+        <Border Grid.Row="1" Background="{StaticResource ColorPrimarioClaro}" Padding="12,8">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Text="* obligatorio" Style="{StaticResource TextoAyuda}" VerticalAlignment="Center" Margin="0,0,16,0"/>
+                <Button x:Name="btnCancelar" Content="Cancelar" Style="{StaticResource BotonNeutro}"
+                        ToolTip="Cerrar sin guardar (Esc)" Click="btnCancelar_Click"/>
+                <Button x:Name="btnGuardar" Content="Guardar" Style="{StaticResource BotonPrincipal}" IsDefault="True" IsEnabled="False"
+                        ToolTip="Guardar los datos (Intro)" Click="btnGuardar_Click"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

@@ -31,6 +31,47 @@ namespace CampingRobledal.Datos
             return null;
         }
 
+        private static string Siguiente(string prefijo, int ancho, System.Collections.Generic.IEnumerable<string> ids)
+        {
+            int max = 0;
+            foreach (string id in ids)
+            {
+                int n;
+                if (id != null && id.StartsWith(prefijo) && int.TryParse(id.Substring(prefijo.Length), out n) && n > max) max = n;
+            }
+            return prefijo + (max + 1).ToString(new string('0', ancho));
+        }
+
+        public static string NuevoIdParcela()
+        {
+            System.Collections.Generic.List<string> ids = new System.Collections.Generic.List<string>();
+            foreach (Parcela p in Parcelas) ids.Add(p.Id);
+            return Siguiente("P-", 2, ids);
+        }
+
+        public static string NuevoIdBungalow()
+        {
+            System.Collections.Generic.List<string> ids = new System.Collections.Generic.List<string>();
+            foreach (Bungalow b in Bungalows) ids.Add(b.Id);
+            return Siguiente("B-", 2, ids);
+        }
+
+        public static string NuevoNumeroReserva()
+        {
+            System.Collections.Generic.List<string> ids = new System.Collections.Generic.List<string>();
+            foreach (Reserva r in Reservas) ids.Add(r.Numero);
+            return Siguiente("R-", 4, ids);
+        }
+
+        /// <summary>Todos los alojamientos (parcelas y bungalows) en una lista.</summary>
+        public static System.Collections.Generic.List<Alojamiento> TodosLosAlojamientos()
+        {
+            System.Collections.Generic.List<Alojamiento> l = new System.Collections.Generic.List<Alojamiento>();
+            foreach (Parcela p in Parcelas) l.Add(p);
+            foreach (Bungalow b in Bungalows) l.Add(b);
+            return l;
+        }
+
         private static void CrearGestores()
         {
             Gestores = new ObservableCollection<Gestor>
