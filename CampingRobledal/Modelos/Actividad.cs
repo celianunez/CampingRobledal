@@ -22,6 +22,20 @@ namespace CampingRobledal
         public string Materiales { get; set; }
         public string Foto { get; set; }
 
+        public string TextoDestinatarios { get { return Destinatarios == Destinatarios.Ninos ? "Niños" : Destinatarios.ToString(); } }
+        public string TextoPrecio { get { return PrecioHora.ToString("0.00") + " €/h"; } }
+
+        public string TextoDias
+        {
+            get
+            {
+                string[] n = { "dom", "lun", "mar", "mié", "jue", "vie", "sáb" };
+                System.Collections.Generic.List<string> l = new System.Collections.Generic.List<string>();
+                foreach (DayOfWeek d in Dias) l.Add(n[(int)d]);
+                return string.Join(", ", l);
+            }
+        }
+
         public string TextoCupo { get { return Inscritos + " / " + CupoMaximo; } }
         public string Horario { get { return HoraInicio + " – " + HoraFin; } }
         public string TextoMonitores

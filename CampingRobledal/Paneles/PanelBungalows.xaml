@@ -1,0 +1,87 @@
+<UserControl x:Class="CampingRobledal.PanelBungalows"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <WrapPanel Grid.Row="0" Margin="0,0,0,8">
+            <TextBlock Text="Buscar:" VerticalAlignment="Center" Margin="0,0,6,0"/>
+            <TextBox x:Name="txtBuscarBungalow" Width="200" Margin="0,0,16,0"
+                     ToolTip="Busca por código o nombre de el bungalow (Ctrl+F)" TextChanged="Filtro_Cambiado"/>
+            <TextBlock Text="Tipo:" VerticalAlignment="Center" Margin="0,0,6,0"/>
+            <ComboBox x:Name="cmbFiltroTipo" Width="120" Margin="0,0,16,0" SelectedIndex="0"
+                      ToolTip="Filtra por tipo de bungalow" SelectionChanged="Filtro_Cambiado">
+                <ComboBoxItem Content="Todas"/>
+                <ComboBoxItem Content="Estándar"/>
+                <ComboBoxItem Content="Familiar"/>
+                <ComboBoxItem Content="Premium"/>
+            </ComboBox>
+            <TextBlock Text="Estado:" VerticalAlignment="Center" Margin="0,0,6,0"/>
+            <ComboBox x:Name="cmbFiltroEstadoBungalow" Width="170" Margin="0,0,16,0" SelectedIndex="0"
+                      ToolTip="Filtra por estado" SelectionChanged="Filtro_Cambiado">
+                <ComboBoxItem Content="Todos"/>
+                <ComboBoxItem Content="Libre"/>
+                <ComboBoxItem Content="Ocupado"/>
+                <ComboBoxItem Content="Reservado"/>
+                <ComboBoxItem Content="En reparación"/>
+                <ComboBoxItem Content="Pendiente de limpieza"/>
+            </ComboBox>
+            <Button x:Name="btnLimpiarFiltros" Content="Limpiar filtros" Style="{StaticResource BotonNeutro}" Margin="0"
+                    ToolTip="Quita la búsqueda y los filtros" Click="btnLimpiarFiltros_Click"/>
+        </WrapPanel>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="320" MinWidth="260"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <DataGrid x:Name="dgBungalows" Grid.Row="0" SelectionChanged="dgBungalows_SelectionChanged"
+                          MouseDoubleClick="dgBungalows_MouseDoubleClick" KeyDown="dgBungalows_KeyDown"
+                          ToolTip="Doble clic para modificar · Supr para eliminar">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Código" Binding="{Binding Id}" Width="70"/>
+                        <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="*"/>
+                        <DataGridTextColumn Header="Tipo" Binding="{Binding TextoTipo}" Width="90"/>
+                        <DataGridTextColumn Header="Capacidad" Binding="{Binding Capacidad}" Width="80"/>
+                        <DataGridTextColumn Header="€/noche" Binding="{Binding PrecioNoche, StringFormat=0.00}" Width="80"/>
+                        <DataGridTemplateColumn Header="Estado" Width="170" CellTemplate="{StaticResource PlantillaPastillaEstado}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,8,0,0">
+                    <Button x:Name="btnNuevoBungalow" Content="➕ Nuevo" Style="{StaticResource BotonPrincipal}" Margin="0,4,4,4"
+                            ToolTip="Añadir un bungalow (Ctrl+N)" Click="btnNuevoBungalow_Click"/>
+                    <Button x:Name="btnModificarBungalow" Content="✎ Modificar" Style="{StaticResource BotonNeutro}" IsEnabled="False"
+                            ToolTip="Modificar el bungalow seleccionada (Intro)" Click="btnModificarBungalow_Click"/>
+                    <Button x:Name="btnEliminarBungalow" Content="🗑 Eliminar" Style="{StaticResource BotonPeligro}" IsEnabled="False"
+                            ToolTip="Eliminar el bungalow seleccionada (Supr)" Click="btnEliminarBungalow_Click"/>
+                </StackPanel>
+            </Grid>
+
+            <GroupBox Grid.Column="2" Header="Ficha de el bungalow">
+                <Grid>
+                    <TextBlock x:Name="lblFichaVaciaBungalow" Style="{StaticResource TextoFichaVacia}"
+                               Text="Selecciona un bungalow de la tabla para ver su ficha"/>
+                    <ScrollViewer x:Name="pnlFichaBungalow" Visibility="Collapsed" VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <TextBlock x:Name="lblFichaNombreBungalow" FontSize="16" FontWeight="SemiBold" TextWrapping="Wrap"/>
+                            <Border x:Name="pnlFichaEstadoBungalow" Style="{StaticResource PastillaEstado}" Margin="0,6,0,8">
+                                <TextBlock x:Name="lblFichaEstadoBungalow" FontWeight="SemiBold"/>
+                            </Border>
+                            <TextBlock x:Name="lblFichaDatosBungalow" TextWrapping="Wrap" LineHeight="20" FontWeight="Normal"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </GroupBox>
+        </Grid>
+    </Grid>
+</UserControl>

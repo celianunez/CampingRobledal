@@ -72,6 +72,54 @@ namespace CampingRobledal
                 e.Handled = true;
                 btnAyuda_Click(sender, e);
             }
+            else if (e.Key == Key.N && Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                e.Handled = true;
+                NuevoEnPestanaActual();
+            }
+            else if (e.Key == Key.F && Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                e.Handled = true;
+                BuscarEnPestanaActual();
+            }
+        }
+
+        /// <summary>Ctrl+N: alta en la pestaña visible.</summary>
+        private void NuevoEnPestanaActual()
+        {
+            TabItem tab = tabPrincipal.SelectedItem as TabItem;
+            if (tab == tbiAlojamientos)
+            {
+                if (tabAlojamientos.SelectedItem == tbiBungalows) pnlBungalows.Nuevo(); else pnlParcelas.Nueva();
+            }
+            else if (tab == tbiReservas) pnlReservas.Nueva();
+            else if (tab == tbiMonitores) pnlMonitores.Nuevo();
+            else if (tab == tbiActividades) pnlActividades.Nueva();
+        }
+
+        /// <summary>Ctrl+F: foco en el cuadro de búsqueda de la pestaña visible.</summary>
+        private void BuscarEnPestanaActual()
+        {
+            TabItem tab = tabPrincipal.SelectedItem as TabItem;
+            if (tab == tbiAlojamientos)
+            {
+                if (tabAlojamientos.SelectedItem == tbiBungalows) pnlBungalows.EnfocarBusqueda(); else pnlParcelas.EnfocarBusqueda();
+            }
+            else if (tab == tbiReservas) pnlReservas.EnfocarBusqueda();
+            else if (tab == tbiMonitores) pnlMonitores.EnfocarBusqueda();
+            else if (tab == tbiActividades) pnlActividades.EnfocarBusqueda();
+        }
+
+        /// <summary>Navegación entre pestañas desde fichas y botones «Ver…».</summary>
+        public void IrAPestana(string nombre)
+        {
+            switch (nombre)
+            {
+                case "Alojamientos": tabPrincipal.SelectedItem = tbiAlojamientos; break;
+                case "Reservas": tabPrincipal.SelectedItem = tbiReservas; break;
+                case "Monitores": tabPrincipal.SelectedItem = tbiMonitores; break;
+                case "Actividades": tabPrincipal.SelectedItem = tbiActividades; break;
+            }
         }
 
         private void btnAyuda_Click(object sender, RoutedEventArgs e)

@@ -14,6 +14,21 @@ namespace CampingRobledal
         public string Observaciones { get; set; }
         public string Plano { get; set; }
 
+        public string TextoCategoria { get { return Categoria == CategoriaParcela.Pequena ? "Pequeña" : Categoria.ToString(); } }
+
+        public string TextoServicios
+        {
+            get
+            {
+                System.Collections.Generic.List<string> l = new System.Collections.Generic.List<string>();
+                if (Electricidad) l.Add("electricidad");
+                if (Agua) l.Add("agua");
+                if (Desague) l.Add("desagüe");
+                if (Sombra) l.Add("sombra");
+                return l.Count == 0 ? "ninguno" : string.Join(", ", l);
+            }
+        }
+
         public decimal PrecioPara(Temporada temporada)
         {
             switch (temporada)

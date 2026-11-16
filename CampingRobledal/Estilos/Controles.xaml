@@ -56,4 +56,23 @@
         <Setter Property="Padding" Value="8,1"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
     </Style>
+
+    <!-- Plantilla de celda con la pastilla de estado (Alojamiento y Reserva comparten propiedades) -->
+    <DataTemplate x:Key="PlantillaPastillaEstado">
+        <Border Style="{StaticResource PastillaEstado}" Background="{Binding ColorEstado}" ToolTip="{Binding TextoEstado}">
+            <TextBlock x:Name="txtPastilla" Text="{Binding TextoEstado}" Foreground="{Binding ColorTextoEstado}" FontWeight="SemiBold"/>
+        </Border>
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding TextoEstado}" Value="Anulada">
+                <Setter TargetName="txtPastilla" Property="TextDecorations" Value="Strikethrough"/>
+            </DataTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
+    <!-- Texto de ficha vacía -->
+    <Style x:Key="TextoFichaVacia" TargetType="TextBlock" BasedOn="{StaticResource TextoAyuda}">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
 </ResourceDictionary>

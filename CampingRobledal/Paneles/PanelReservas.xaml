@@ -1,0 +1,97 @@
+<UserControl x:Class="CampingRobledal.PanelReservas"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <WrapPanel Grid.Row="0" Margin="0,0,0,8">
+            <TextBlock Text="Buscar:" VerticalAlignment="Center" Margin="0,0,6,0"/>
+            <TextBox x:Name="txtBuscarReserva" Width="200" Margin="0,0,16,0" VerticalAlignment="Center"
+                     ToolTip="Busca por cliente o teléfono (Ctrl+F)" TextChanged="Filtro_Cambiado"/>
+            <TextBlock Text="Entrada desde:" VerticalAlignment="Center" Margin="0,0,6,0"/>
+            <DatePicker x:Name="dpFiltroEntrada" Width="130" Margin="0,0,16,0"
+                        ToolTip="Muestra las reservas con entrada a partir de esta fecha" SelectedDateChanged="Filtro_Cambiado"/>
+            <TextBlock Text="Estado:" VerticalAlignment="Center" Margin="0,0,6,0"/>
+            <ComboBox x:Name="cmbFiltroEstadoReserva" Width="120" Margin="0,0,16,0" SelectedIndex="0"
+                      ToolTip="Filtra por estado de la reserva" SelectionChanged="Filtro_Cambiado">
+                <ComboBoxItem Content="Todos"/>
+                <ComboBoxItem Content="Confirmada"/>
+                <ComboBoxItem Content="Check-in"/>
+                <ComboBoxItem Content="Finalizada"/>
+                <ComboBoxItem Content="Anulada"/>
+            </ComboBox>
+            <TextBlock Text="Alojamiento:" VerticalAlignment="Center" Margin="0,0,6,0"/>
+            <ComboBox x:Name="cmbFiltroAlojamiento" Width="130" Margin="0,0,16,0"
+                      ToolTip="Filtra por alojamiento" SelectionChanged="Filtro_Cambiado"/>
+            <Button x:Name="btnLimpiarFiltros" Content="Limpiar filtros" Style="{StaticResource BotonNeutro}" Margin="0"
+                    ToolTip="Quita la búsqueda y los filtros" Click="btnLimpiarFiltros_Click"/>
+        </WrapPanel>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="12"/>
+                <ColumnDefinition Width="340" MinWidth="280"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <DataGrid x:Name="dgReservas" Grid.Row="0" SelectionChanged="dgReservas_SelectionChanged"
+                          MouseDoubleClick="dgReservas_MouseDoubleClick" KeyDown="dgReservas_KeyDown"
+                          ToolTip="Doble clic para modificar · Supr para anular">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Nº" Binding="{Binding Numero}" Width="75"/>
+                        <DataGridTextColumn Header="Cliente" Binding="{Binding Cliente}" Width="*"/>
+                        <DataGridTextColumn Header="Alojamiento" Binding="{Binding Alojamiento.Nombre}" Width="110"/>
+                        <DataGridTextColumn Header="Entrada" Binding="{Binding Entrada, StringFormat=dd/MM/yyyy}" Width="90"/>
+                        <DataGridTextColumn Header="Salida" Binding="{Binding Salida, StringFormat=dd/MM/yyyy}" Width="90"/>
+                        <DataGridTextColumn Header="Personas" Binding="{Binding Ocupantes}" Width="70"/>
+                        <DataGridTemplateColumn Header="Estado" Width="110" CellTemplate="{StaticResource PlantillaPastillaEstado}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,8,0,0">
+                    <Button x:Name="btnNuevaReserva" Content="➕ Nueva" Style="{StaticResource BotonPrincipal}" Margin="0,4,4,4"
+                            ToolTip="Crear una reserva (Ctrl+N)" Click="btnNuevaReserva_Click"/>
+                    <Button x:Name="btnModificarReserva" Content="✎ Modificar" Style="{StaticResource BotonNeutro}" IsEnabled="False"
+                            ToolTip="Modificar la reserva seleccionada (Intro)" Click="btnModificarReserva_Click"/>
+                    <Button x:Name="btnAnularReserva" Content="✖ Anular reserva" Style="{StaticResource BotonPeligro}" IsEnabled="False"
+                            ToolTip="Anular la reserva seleccionada (Supr)" Click="btnAnularReserva_Click"/>
+                </StackPanel>
+            </Grid>
+
+            <GroupBox Grid.Column="2" Header="Ficha de la reserva">
+                <Grid>
+                    <TextBlock x:Name="lblFichaVaciaReserva" Style="{StaticResource TextoFichaVacia}"
+                               Text="Selecciona una reserva de la tabla para ver su ficha"/>
+                    <Grid x:Name="pnlFichaReserva" Visibility="Collapsed">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <StackPanel>
+                                <TextBlock x:Name="lblFichaNumeroReserva" FontSize="16" FontWeight="SemiBold"/>
+                                <Border x:Name="pnlFichaEstadoReserva" Style="{StaticResource PastillaEstado}" Margin="0,6,0,8">
+                                    <TextBlock x:Name="lblFichaEstadoReserva" FontWeight="SemiBold"/>
+                                </Border>
+                                <TextBlock x:Name="lblFichaDatosReserva" TextWrapping="Wrap" LineHeight="20"/>
+                            </StackPanel>
+                        </ScrollViewer>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,8,0,0">
+                            <Button x:Name="btnCheckIn" Content="✔ Check-in" Style="{StaticResource BotonPrincipal}" Margin="0,0,4,0"
+                                    ToolTip="Registrar la llegada del cliente (solo reservas confirmadas)" Click="btnCheckIn_Click"/>
+                            <Button x:Name="btnVerAlojamiento" Content="Ver alojamiento" Style="{StaticResource BotonNeutro}"
+                                    ToolTip="Ir a la pestaña de alojamientos" Click="btnVerAlojamiento_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </GroupBox>
+        </Grid>
+    </Grid>
+</UserControl>

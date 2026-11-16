@@ -1,6 +1,7 @@
 <Window x:Class="CampingRobledal.VentanaPrincipal"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:CampingRobledal"
         Title="Camping El Robledal · Gestión" Width="1200" Height="760" MinWidth="1100" MinHeight="700"
         WindowStartupLocation="CenterScreen"
         Background="{StaticResource ColorFondo}" FontFamily="{StaticResource FuentePrincipal}"
@@ -72,31 +73,21 @@
             <TabItem x:Name="tbiAlojamientos" Header="🏕 Alojamientos" ToolTip="Parcelas y bungalows">
                 <TabControl x:Name="tabAlojamientos" Margin="4" SelectionChanged="tabPrincipal_SelectionChanged">
                     <TabItem x:Name="tbiParcelas" Header="Parcelas" ToolTip="Gestión de parcelas">
-                        <TextBlock x:Name="lblPendienteParcelas" Style="{StaticResource TextoAyuda}"
-                                   Text="Parcelas: tabla y ficha en construcción (feature/parcelas)."
-                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <local:PanelParcelas x:Name="pnlParcelas"/>
                     </TabItem>
                     <TabItem x:Name="tbiBungalows" Header="Bungalows" ToolTip="Gestión de bungalows">
-                        <TextBlock x:Name="lblPendienteBungalows" Style="{StaticResource TextoAyuda}"
-                                   Text="Bungalows: tabla y ficha en construcción (feature/bungalows)."
-                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <local:PanelBungalows x:Name="pnlBungalows"/>
                     </TabItem>
                 </TabControl>
             </TabItem>
             <TabItem x:Name="tbiReservas" Header="📅 Reservas" ToolTip="Gestión de reservas">
-                <TextBlock x:Name="lblPendienteReservas" Style="{StaticResource TextoAyuda}"
-                           Text="Reservas: tabla y ficha en construcción (feature/reservas)."
-                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <local:PanelReservas x:Name="pnlReservas"/>
             </TabItem>
             <TabItem x:Name="tbiMonitores" Header="🧑‍🏫 Monitores" ToolTip="Gestión de monitores temporales">
-                <TextBlock x:Name="lblPendienteMonitores" Style="{StaticResource TextoAyuda}"
-                           Text="Monitores: tabla y ficha en construcción (feature/monitores)."
-                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <local:PanelMonitores x:Name="pnlMonitores"/>
             </TabItem>
             <TabItem x:Name="tbiActividades" Header="🏊 Actividades" ToolTip="Gestión de actividades de verano">
-                <TextBlock x:Name="lblPendienteActividades" Style="{StaticResource TextoAyuda}"
-                           Text="Actividades: tabla y ficha en construcción (feature/actividades)."
-                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <local:PanelActividades x:Name="pnlActividades"/>
             </TabItem>
         </TabControl>
     </DockPanel>

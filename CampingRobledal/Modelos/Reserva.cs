@@ -42,6 +42,22 @@ namespace CampingRobledal
             }
         }
 
+        public string ColorEstado
+        {
+            get
+            {
+                switch (Estado)
+                {
+                    case EstadoReserva.Confirmada: return "#1565C0";
+                    case EstadoReserva.CheckIn: return "#2E7D32";
+                    case EstadoReserva.Finalizada: return "#757575";
+                    default: return "#C62828";
+                }
+            }
+        }
+
+        public string ColorTextoEstado { get { return "#FFFFFF"; } }
+
         public string TextoEstado
         {
             get
