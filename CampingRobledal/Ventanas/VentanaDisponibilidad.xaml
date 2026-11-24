@@ -1,0 +1,87 @@
+<Window x:Class="CampingRobledal.VentanaDisponibilidad"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Disponibilidad" Width="1100" Height="640" MinWidth="900" MinHeight="520"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
+        Background="{StaticResource ColorFondo}" FontFamily="{StaticResource FuentePrincipal}"
+        FontSize="{StaticResource TamanoTexto}" PreviewKeyDown="Window_PreviewKeyDown">
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Filtros y periodo -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,8">
+            <WrapPanel>
+                <TextBlock Text="Desde:" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                <DatePicker x:Name="dpDesde" Width="130" Margin="0,0,12,0" ToolTip="Primer día que se muestra"
+                            SelectedDateChanged="Periodo_Cambiado"/>
+                <TextBlock Text="Hasta:" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                <DatePicker x:Name="dpHasta" Width="130" Margin="0,0,16,0" ToolTip="Último día que se muestra"
+                            SelectedDateChanged="Periodo_Cambiado"/>
+                <TextBlock Text="Tipo:" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                <ComboBox x:Name="cmbTipoAlojamiento" Width="110" Margin="0,0,16,0" SelectedIndex="0"
+                          ToolTip="Muestra parcelas, bungalows o ambos" SelectionChanged="Filtro_Cambiado">
+                    <ComboBoxItem Content="Todos"/>
+                    <ComboBoxItem Content="Parcelas"/>
+                    <ComboBoxItem Content="Bungalows"/>
+                </ComboBox>
+                <TextBlock Text="Categoría:" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                <ComboBox x:Name="cmbCategoria" Width="110" Margin="0,0,16,0" SelectedIndex="0"
+                          ToolTip="Filtra por categoría de parcela o tipo de bungalow" SelectionChanged="Filtro_Cambiado">
+                    <ComboBoxItem Content="Todas"/>
+                    <ComboBoxItem Content="Pequeña"/>
+                    <ComboBoxItem Content="Mediana"/>
+                    <ComboBoxItem Content="Grande"/>
+                    <ComboBoxItem Content="Premium"/>
+                    <ComboBoxItem Content="Estándar"/>
+                    <ComboBoxItem Content="Familiar"/>
+                </ComboBox>
+                <Button x:Name="btnPeriodoAnterior" Content="◀ Anterior" Style="{StaticResource BotonNeutro}" Margin="0,0,4,0"
+                        ToolTip="Mostrar el periodo anterior" Click="btnPeriodoAnterior_Click"/>
+                <Button x:Name="btnPeriodoSiguiente" Content="Siguiente ▶" Style="{StaticResource BotonNeutro}" Margin="0"
+                        ToolTip="Mostrar el periodo siguiente" Click="btnPeriodoSiguiente_Click"/>
+            </WrapPanel>
+            <TextBlock x:Name="lblErrorPeriodo" Style="{StaticResource TextoError}" Margin="0,4,0,0"/>
+        </StackPanel>
+
+        <!-- Calendario alojamiento x día (se construye en código) -->
+        <Border Grid.Row="1" BorderBrush="{StaticResource BordeNormal}" BorderThickness="1" Background="White">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <Grid x:Name="pnlCalendario" Margin="4"/>
+            </ScrollViewer>
+        </Border>
+
+        <!-- Leyenda, selección y botones -->
+        <Grid Grid.Row="2" Margin="0,8,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+                <WrapPanel>
+                    <TextBlock Text="Leyenda:" VerticalAlignment="Center" Margin="0,0,8,0" FontWeight="SemiBold"/>
+                    <Border Style="{StaticResource PastillaEstado}" Background="{StaticResource EstadoLibre}" Margin="0,0,6,0">
+                        <TextBlock Text="L · Libre" Foreground="White"/></Border>
+                    <Border Style="{StaticResource PastillaEstado}" Background="{StaticResource EstadoOcupado}" Margin="0,0,6,0">
+                        <TextBlock Text="O · Ocupado" Foreground="White"/></Border>
+                    <Border Style="{StaticResource PastillaEstado}" Background="{StaticResource EstadoReservado}" Margin="0,0,6,0">
+                        <TextBlock Text="R · Reservado" Foreground="White"/></Border>
+                    <Border Style="{StaticResource PastillaEstado}" Background="{StaticResource EstadoReparacion}" Margin="0,0,6,0">
+                        <TextBlock Text="X · En reparación" Foreground="White"/></Border>
+                    <Border Style="{StaticResource PastillaEstado}" Background="{StaticResource EstadoLimpieza}" Margin="0,0,6,0">
+                        <TextBlock Text="P · Pendiente de limpieza" Foreground="#222222"/></Border>
+                </WrapPanel>
+                <TextBlock x:Name="lblSeleccion" Margin="0,6,0,0" Text="Haz clic en un día libre para empezar y en otro para terminar la estancia."/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Bottom">
+                <Button x:Name="btnCerrar" Content="Cerrar" Style="{StaticResource BotonNeutro}"
+                        ToolTip="Cerrar la ventana (Esc)" Click="btnCerrar_Click"/>
+                <Button x:Name="btnReservar" Content="Reservar" Style="{StaticResource BotonPrincipal}" IsDefault="True" IsEnabled="False"
+                        ToolTip="Reservar el alojamiento y los días seleccionados (Intro)" Click="btnReservar_Click"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

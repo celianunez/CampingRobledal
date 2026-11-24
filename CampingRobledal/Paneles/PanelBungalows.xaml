@@ -61,13 +61,15 @@
                     <Button x:Name="btnNuevoBungalow" Content="➕ Nuevo" Style="{StaticResource BotonPrincipal}" Margin="0,4,4,4"
                             ToolTip="Añadir un bungalow (Ctrl+N)" Click="btnNuevoBungalow_Click"/>
                     <Button x:Name="btnModificarBungalow" Content="✎ Modificar" Style="{StaticResource BotonNeutro}" IsEnabled="False"
-                            ToolTip="Modificar el bungalow seleccionada (Intro)" Click="btnModificarBungalow_Click"/>
+                            ToolTip="Modificar el bungalow seleccionado (Intro)" Click="btnModificarBungalow_Click"/>
                     <Button x:Name="btnEliminarBungalow" Content="🗑 Eliminar" Style="{StaticResource BotonPeligro}" IsEnabled="False"
-                            ToolTip="Eliminar el bungalow seleccionada (Supr)" Click="btnEliminarBungalow_Click"/>
+                            ToolTip="Eliminar el bungalow seleccionado (Supr)" Click="btnEliminarBungalow_Click"/>
+                    <Button x:Name="btnVerDisponibilidad" Content="📅 Ver disponibilidad" Style="{StaticResource BotonNeutro}"
+                            ToolTip="Abrir el calendario de disponibilidad" Click="btnVerDisponibilidad_Click"/>
                 </StackPanel>
             </Grid>
 
-            <GroupBox Grid.Column="2" Header="Ficha de el bungalow">
+            <GroupBox Grid.Column="2" Header="Ficha del bungalow">
                 <Grid>
                     <TextBlock x:Name="lblFichaVaciaBungalow" Style="{StaticResource TextoFichaVacia}"
                                Text="Selecciona un bungalow de la tabla para ver su ficha"/>

@@ -1,0 +1,33 @@
+<Window x:Class="CampingRobledal.DialogoAcercaDe"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Acerca de" Width="440" Height="420" MinWidth="380" MinHeight="380"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
+        Background="{StaticResource ColorFondo}" FontFamily="{StaticResource FuentePrincipal}"
+        FontSize="{StaticResource TamanoTexto}" PreviewKeyDown="Window_PreviewKeyDown">
+    <Grid Margin="24,20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <!-- Logo provisional (no hay imagen todavía) -->
+            <Border x:Name="imgLogo" Width="80" Height="80" CornerRadius="40" HorizontalAlignment="Center"
+                    Background="{StaticResource ColorPrimario}" ToolTip="Camping El Robledal">
+                <TextBlock Text="🌳" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <TextBlock Text="Camping El Robledal · Gestión" FontSize="20" FontWeight="SemiBold" TextAlignment="Center"
+                       TextWrapping="Wrap" Margin="0,14,0,2"/>
+            <TextBlock Text="Versión 0.2 · Hito 2 (prototipo)" Style="{StaticResource TextoAyuda}" TextAlignment="Center"/>
+            <TextBlock Text="Noviembre de 2026" Style="{StaticResource TextoAyuda}" TextAlignment="Center" Margin="0,0,0,16"/>
+            <TextBlock Text="Autores" FontWeight="SemiBold" TextAlignment="Center"/>
+            <TextBlock Text="Adam Gouram El Bouhali" TextAlignment="Center"/>
+            <TextBlock Text="Celia Núñez Acosta" TextAlignment="Center" Margin="0,0,0,16"/>
+            <TextBlock Text="Interacción Persona-Ordenador I (21757)" TextAlignment="Center"/>
+            <TextBlock Text="Grado en Ingeniería Informática · ESI Ciudad Real (UCLM)" TextAlignment="Center" TextWrapping="Wrap"/>
+            <TextBlock Text="Curso 2026/27 · Grupo A" TextAlignment="Center"/>
+        </StackPanel>
+        <Button x:Name="btnCerrar" Grid.Row="1" Content="Cerrar" Style="{StaticResource BotonPrincipal}" IsDefault="True"
+                HorizontalAlignment="Right" ToolTip="Cerrar esta ventana (Esc)" Click="btnCerrar_Click"/>
+    </Grid>
+</Window>

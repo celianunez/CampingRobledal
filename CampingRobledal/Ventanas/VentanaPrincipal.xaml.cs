@@ -126,8 +126,13 @@ namespace CampingRobledal
 
         private void btnAyuda_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("La ayuda completa estará disponible más adelante.",
-                "Ayuda", MessageBoxButton.OK, MessageBoxImage.Information);
+            // Abre el tema de la pestaña que se está viendo (F1 contextual)
+            string tema = "Alojamientos";
+            TabItem tab = tabPrincipal.SelectedItem as TabItem;
+            if (tab == tbiReservas) tema = "Reservas";
+            else if (tab == tbiMonitores) tema = "Monitores";
+            else if (tab == tbiActividades) tema = "Actividades";
+            VentanaAyuda.Abrir(tema);
         }
 
         private void btnPreferencias_Click(object sender, RoutedEventArgs e)
@@ -138,8 +143,7 @@ namespace CampingRobledal
 
         private void mnuAcercaDe_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Camping El Robledal · Gestión\nAdam Gouram El Bouhali y Celia Núñez Acosta\nIPO1 · curso 2026/27",
-                "Acerca de", MessageBoxButton.OK, MessageBoxImage.Information);
+            new DialogoAcercaDe { Owner = this }.ShowDialog();
         }
 
         private void btnSalir_Click(object sender, RoutedEventArgs e)
@@ -153,6 +157,7 @@ namespace CampingRobledal
             salidaConfirmada = VentanaConfirmacion.Confirmar(this, "¿Salir de Camping El Robledal?",
                 $"Se cerrará la sesión de {gestor.NombreCompleto} y se perderán los datos de esta sesión.", "Salir");
             e.Cancel = !salidaConfirmada;
+            if (salidaConfirmada) VentanaAyuda.CerrarSiAbierta();
         }
     }
 }

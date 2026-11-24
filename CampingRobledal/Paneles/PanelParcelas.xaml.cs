@@ -106,7 +106,8 @@ namespace CampingRobledal
 
         private void btnVerDisponibilidad_Click(object sender, RoutedEventArgs e)
         {
-            VentanaPrincipal.MostrarEstado("La disponibilidad se abrirá desde aquí en una fase posterior");
+            new VentanaDisponibilidad(ParcelaSeleccionada, null, false) { Owner = Window.GetWindow(this) }.ShowDialog();
+            VentanaPrincipal.Actual.ActualizarResumen();
         }
 
         public void Nueva() => AbrirFormulario(null);

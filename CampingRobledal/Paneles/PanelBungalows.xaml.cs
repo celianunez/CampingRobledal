@@ -101,6 +101,12 @@ namespace CampingRobledal
             else if (e.Key == Key.Enter) { e.Handled = true; Modificar(); }
         }
 
+        private void btnVerDisponibilidad_Click(object sender, RoutedEventArgs e)
+        {
+            new VentanaDisponibilidad(BungalowSeleccionada, null, false) { Owner = Window.GetWindow(this) }.ShowDialog();
+            VentanaPrincipal.Actual.ActualizarResumen();
+        }
+
         public void Nuevo() => AbrirFormulario(null);
 
         public void Modificar()

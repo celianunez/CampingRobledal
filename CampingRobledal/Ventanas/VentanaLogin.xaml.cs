@@ -9,10 +9,14 @@ namespace CampingRobledal
 {
     public partial class VentanaLogin : Window
     {
+        private bool entrando = false;
+
         public VentanaLogin()
         {
             InitializeComponent();
             txtUsuario.Focus();
+            // Si se sale del login sin entrar, la ayuda abierta no debe mantener viva la aplicación
+            Closed += (o, e) => { if (!entrando) VentanaAyuda.CerrarSiAbierta(); };
         }
 
         /// <summary>Contraseña escrita, esté visible o no.</summary>
@@ -117,13 +121,13 @@ namespace CampingRobledal
             VentanaPrincipal principal = new VentanaPrincipal(gestor);
             gestor.UltimoAcceso = DateTime.Now;
             principal.Show();
+            entrando = true;
             Close();
         }
 
         private void btnAyuda_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Escribe tu usuario y tu contraseña y pulsa Entrar.\n\nLa ayuda completa estará disponible más adelante.",
-                "Ayuda", MessageBoxButton.OK, MessageBoxImage.Information);
+            VentanaAyuda.Abrir("Iniciar sesión");
         }
 
         private void btnSalir_Click(object sender, RoutedEventArgs e)

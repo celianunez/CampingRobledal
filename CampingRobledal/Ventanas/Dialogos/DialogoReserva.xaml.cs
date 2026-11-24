@@ -57,7 +57,16 @@ namespace CampingRobledal
 
         private void btnVerDisponibilidad_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(this, "El calendario de disponibilidad llegará en la fase 4.", "Disponibilidad");
+            // Modo «solo elegir»: el calendario devuelve alojamiento y fechas para este formulario
+            DateTime? desde = dpEntrada.SelectedDate;
+            VentanaDisponibilidad v = new VentanaDisponibilidad(cmbAlojamiento.SelectedItem as Alojamiento, desde, true) { Owner = this };
+            if (v.ShowDialog() == true)
+            {
+                cmbAlojamiento.SelectedItem = v.AlojamientoElegido;
+                dpEntrada.SelectedDate = v.Entrada;
+                dpSalida.SelectedDate = v.Salida;
+                Validar(false, null);
+            }
         }
 
         private bool Validar(bool todo, Control campo)
