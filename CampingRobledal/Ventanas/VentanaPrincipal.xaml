@@ -11,11 +11,11 @@
 
         <!-- Menú -->
         <Menu DockPanel.Dock="Top" x:Name="mnuPrincipal" Background="White">
-            <MenuItem Header="_Archivo">
+            <MenuItem Header="_Archivo" ToolTip="Opciones de la aplicación">
                 <MenuItem x:Name="mnuSalir" Header="_Salir" InputGestureText="Alt+F4"
                           ToolTip="Salir de la aplicación (Alt+F4)" Click="btnSalir_Click"/>
             </MenuItem>
-            <MenuItem Header="A_yuda">
+            <MenuItem Header="A_yuda" ToolTip="Ayuda e información de la aplicación">
                 <MenuItem x:Name="mnuAyuda" Header="_Ayuda" InputGestureText="F1"
                           ToolTip="Abrir la ayuda (F1)" Click="btnAyuda_Click"/>
                 <MenuItem x:Name="mnuAcercaDe" Header="_Acerca de"
