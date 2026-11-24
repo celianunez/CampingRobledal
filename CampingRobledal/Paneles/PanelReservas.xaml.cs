@@ -1,7 +1,9 @@
+using System.Linq;
 using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -108,7 +110,6 @@ namespace CampingRobledal
             VentanaPrincipal.Actual.IrAPestana("Alojamientos");
         }
 
-        // Los diálogos de alta, modificación y confirmación llegan en la fase siguiente
         private void btnNuevaReserva_Click(object sender, RoutedEventArgs e) { Nueva(); }
         private void btnModificarReserva_Click(object sender, RoutedEventArgs e) { Modificar(); }
         private void btnAnularReserva_Click(object sender, RoutedEventArgs e) { Eliminar(); }
@@ -127,18 +128,47 @@ namespace CampingRobledal
             else if (e.Key == Key.Enter) { e.Handled = true; Modificar(); }
         }
 
-        public void Nueva() { VentanaPrincipal.MostrarEstado("Nueva reserva: el formulario llega en la fase siguiente"); }
+        public void Nueva() => AbrirFormulario(null);
 
         public void Modificar()
         {
-            if (!btnModificarReserva.IsEnabled) return;
-            VentanaPrincipal.MostrarEstado("Modificar reserva " + ReservaSeleccionada.Numero + ": el formulario llega en la fase siguiente");
+            if (ReservaSeleccionada != null && btnModificarReserva.IsEnabled)
+                AbrirFormulario(ReservaSeleccionada);
+        }
+
+        private void AbrirFormulario(Reserva original)
+        {
+            var dialogo = new DialogoReserva(original) { Owner = Window.GetWindow(this) };
+            if (dialogo.ShowDialog() != true) return;
+
+            var reserva = dialogo.Reserva;
+            if (original == null)
+            {
+                DatosPrueba.Reservas.Add(reserva);
+                if (!vista.Contains(reserva)) btnLimpiarFiltros_Click(this, null);
+                dgReservas.SelectedItem = reserva;
+                dgReservas.ScrollIntoView(reserva);
+            }
+            ActualizarVista();
+            VentanaPrincipal.MostrarEstado($"Reserva {reserva.Numero} guardada");
+        }
+
+        internal void ActualizarVista()
+        {
+            dgReservas.Items.Refresh();
+            dgReservas_SelectionChanged(dgReservas, null);
         }
 
         public void Eliminar()
         {
-            if (!btnAnularReserva.IsEnabled) return;
-            VentanaPrincipal.MostrarEstado("Anular reserva " + ReservaSeleccionada.Numero + ": la confirmación llega en la fase siguiente");
+            var reserva = ReservaSeleccionada;
+            if (reserva == null || reserva.Estado != EstadoReserva.Confirmada) return;
+            string mensaje = "La estancia quedará anulada y sus fechas volverán a estar disponibles.";
+            if (!VentanaConfirmacion.Confirmar(Window.GetWindow(this), $"¿Anular reserva {reserva.Numero}?", mensaje, "Anular reserva")) return;
+
+            reserva.Estado = EstadoReserva.Anulada;
+            ActualizarVista();
+            VentanaPrincipal.MostrarEstado($"Reserva {reserva.Numero} anulada");
         }
 
         public void EnfocarBusqueda() { txtBuscarReserva.Focus(); txtBuscarReserva.SelectAll(); }

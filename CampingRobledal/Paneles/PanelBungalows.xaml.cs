@@ -1,6 +1,8 @@
+using System.Linq;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -80,7 +82,6 @@ namespace CampingRobledal
                 (string.IsNullOrWhiteSpace(p.Descripcion) ? "" : "\n\n" + p.Descripcion);
         }
 
-        // Los diálogos de alta, modificación y confirmación llegan en la fase siguiente
         private void btnNuevoBungalow_Click(object sender, RoutedEventArgs e) { Nuevo(); }
         private void btnModificarBungalow_Click(object sender, RoutedEventArgs e) { Modificar(); }
         private void btnEliminarBungalow_Click(object sender, RoutedEventArgs e) { Eliminar(); }
@@ -100,18 +101,50 @@ namespace CampingRobledal
             else if (e.Key == Key.Enter) { e.Handled = true; Modificar(); }
         }
 
-        public void Nuevo() { VentanaPrincipal.MostrarEstado("Nuevo bungalow: el formulario llega en la fase siguiente"); }
+        public void Nuevo() => AbrirFormulario(null);
 
         public void Modificar()
         {
-            if (BungalowSeleccionada == null) return;
-            VentanaPrincipal.MostrarEstado("Modificar " + BungalowSeleccionada.Nombre + ": el formulario llega en la fase siguiente");
+            if (BungalowSeleccionada != null && btnModificarBungalow.IsEnabled)
+                AbrirFormulario(BungalowSeleccionada);
+        }
+
+        private void AbrirFormulario(Bungalow original)
+        {
+            var dialogo = new DialogoBungalow(original) { Owner = Window.GetWindow(this) };
+            if (dialogo.ShowDialog() != true) return;
+
+            var bungalow = dialogo.Bungalow;
+            if (original == null)
+            {
+                DatosPrueba.Bungalows.Add(bungalow);
+                if (!vista.Contains(bungalow)) btnLimpiarFiltros_Click(this, null);
+                dgBungalows.SelectedItem = bungalow;
+                dgBungalows.ScrollIntoView(bungalow);
+            }
+            ActualizarVista();
+            VentanaPrincipal.MostrarEstado($"Bungalow {bungalow.Nombre} guardado");
+        }
+
+        internal void ActualizarVista()
+        {
+            dgBungalows.Items.Refresh();
+            dgBungalows_SelectionChanged(dgBungalows, null);
         }
 
         public void Eliminar()
         {
-            if (BungalowSeleccionada == null) return;
-            VentanaPrincipal.MostrarEstado("Eliminar " + BungalowSeleccionada.Nombre + ": la confirmación llega en la fase siguiente");
+            var bungalow = BungalowSeleccionada;
+            if (bungalow == null) return;
+            var afectadas = DatosPrueba.Reservas.Where(r => r.Alojamiento == bungalow).ToList();
+            int activas = afectadas.Count(r => r.Estado == EstadoReserva.Confirmada || r.Estado == EstadoReserva.CheckIn);
+            string mensaje = $"Se eliminará el alojamiento. Quedarán sin alojamiento {afectadas.Count} reservas, de las cuales {activas} están confirmadas o con check-in.";
+            if (!VentanaConfirmacion.Confirmar(Window.GetWindow(this), $"¿Eliminar {bungalow.Nombre}?", mensaje, "Eliminar")) return;
+
+            foreach (var reserva in afectadas) reserva.Alojamiento = null;
+            DatosPrueba.Bungalows.Remove(bungalow);
+            ActualizarVista();
+            VentanaPrincipal.MostrarEstado($"Bungalow {bungalow.Nombre} eliminado");
         }
 
         public void EnfocarBusqueda() { txtBuscarBungalow.Focus(); txtBuscarBungalow.SelectAll(); }

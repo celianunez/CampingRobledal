@@ -3,11 +3,11 @@ Actualizado el 24 de noviembre de 2026 · rama claude/camping-robledal-fases-0-1
 ## Objetivo
 Completar la fase 3 de altas, modificaciones y confirmaciones.
 ## Hecho (verificado)
-Implementados los cinco diálogos sobre los modelos y eventos del XAML.
+Implementados los formularios y conectadas las cinco tablas, sus confirmaciones y el cierre de sesión.
 ## En curso
-Conectar las acciones de las tablas y la salida de sesión.
+Compilar el proyecto y verificar los flujos modales.
 ## Siguiente paso (exacto)
-Conectar las acciones de las tablas y la salida de sesión.
+Compilar el proyecto y verificar los flujos modales.
 ## Datos del entorno
 WPF para Windows, .NET 8.
 ## Decisiones tomadas (y por qué)

@@ -32,10 +32,12 @@ namespace CampingRobledal
         /// <summary>Muestra en la barra de estado el resultado de la última acción (RF-08).</summary>
         public static void MostrarEstado(string mensaje)
         {
-            if (Actual != null) Actual.lblEstado.Text = mensaje;
+            if (Actual == null) return;
+            Actual.lblEstado.Text = mensaje;
+            Actual.ActualizarResumen();
         }
 
-        private void ActualizarResumen()
+        public void ActualizarResumen()
         {
             if (lblResumen == null) return;
             TabItem tab = tabPrincipal.SelectedItem as TabItem;
@@ -148,11 +150,9 @@ namespace CampingRobledal
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (salidaConfirmada) return;
-            // Confirmación provisional; la ventana propia (14-15) llega con feature/ayuda-confirmaciones
-            MessageBoxResult r = MessageBox.Show("¿Quieres salir de la aplicación?", "Salir",
-                MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-            if (r == MessageBoxResult.Yes) salidaConfirmada = true;
-            else e.Cancel = true;
+            salidaConfirmada = VentanaConfirmacion.Confirmar(this, "¿Salir de Camping El Robledal?",
+                $"Se cerrará la sesión de {gestor.NombreCompleto} y se perderán los datos de esta sesión.", "Salir");
+            e.Cancel = !salidaConfirmada;
         }
     }
 }

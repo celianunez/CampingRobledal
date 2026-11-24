@@ -1,6 +1,8 @@
+using System.Linq;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -86,7 +88,6 @@ namespace CampingRobledal
             VentanaPrincipal.Actual.IrAPestana("Actividades");
         }
 
-        // Los diálogos de alta, modificación y confirmación llegan en la fase siguiente
         private void btnNuevoMonitor_Click(object sender, RoutedEventArgs e) { Nuevo(); }
         private void btnModificarMonitor_Click(object sender, RoutedEventArgs e) { Modificar(); }
         private void btnDarDeBaja_Click(object sender, RoutedEventArgs e) { Eliminar(); }
@@ -105,18 +106,47 @@ namespace CampingRobledal
             else if (e.Key == Key.Enter) { e.Handled = true; Modificar(); }
         }
 
-        public void Nuevo() { VentanaPrincipal.MostrarEstado("Nuevo monitor: el formulario llega en la fase siguiente"); }
+        public void Nuevo() => AbrirFormulario(null);
 
         public void Modificar()
         {
-            if (MonitorSeleccionado == null) return;
-            VentanaPrincipal.MostrarEstado("Modificar " + MonitorSeleccionado.NombreCompleto + ": el formulario llega en la fase siguiente");
+            if (MonitorSeleccionado != null && btnModificarMonitor.IsEnabled)
+                AbrirFormulario(MonitorSeleccionado);
+        }
+
+        private void AbrirFormulario(Monitor original)
+        {
+            var dialogo = new DialogoMonitor(original) { Owner = Window.GetWindow(this) };
+            if (dialogo.ShowDialog() != true) return;
+
+            var monitor = dialogo.Monitor;
+            if (original == null)
+            {
+                DatosPrueba.Monitores.Add(monitor);
+                if (!vista.Contains(monitor)) btnLimpiarFiltros_Click(this, null);
+                dgMonitores.SelectedItem = monitor;
+                dgMonitores.ScrollIntoView(monitor);
+            }
+            ActualizarVista();
+            VentanaPrincipal.MostrarEstado($"Monitor {monitor.NombreCompleto} guardado");
+        }
+
+        internal void ActualizarVista()
+        {
+            dgMonitores.Items.Refresh();
+            dgMonitores_SelectionChanged(dgMonitores, null);
         }
 
         public void Eliminar()
         {
-            if (!btnDarDeBaja.IsEnabled) return;
-            VentanaPrincipal.MostrarEstado("Dar de baja a " + MonitorSeleccionado.NombreCompleto + ": la confirmación llega en la fase siguiente");
+            var monitor = MonitorSeleccionado;
+            if (monitor == null || !monitor.Activo) return;
+            string mensaje = "El monitor dejará de estar disponible para nuevas asignaciones. Se conservarán sus actividades.";
+            if (!VentanaConfirmacion.Confirmar(Window.GetWindow(this), $"¿Dar de baja {monitor.NombreCompleto}?", mensaje, "Dar de baja")) return;
+
+            monitor.Activo = false;
+            ActualizarVista();
+            VentanaPrincipal.MostrarEstado($"Monitor {monitor.NombreCompleto} dado de baja");
         }
 
         public void EnfocarBusqueda() { txtBuscarMonitor.Focus(); txtBuscarMonitor.SelectAll(); }

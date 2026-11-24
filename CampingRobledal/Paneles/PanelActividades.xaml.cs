@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -101,7 +102,6 @@ namespace CampingRobledal
             VentanaPrincipal.Actual.IrAPestana("Monitores");
         }
 
-        // Los diálogos de alta, modificación y confirmación llegan en la fase siguiente
         private void btnNuevaActividad_Click(object sender, RoutedEventArgs e) { Nueva(); }
         private void btnModificarActividad_Click(object sender, RoutedEventArgs e) { Modificar(); }
         private void btnEliminarActividad_Click(object sender, RoutedEventArgs e) { Eliminar(); }
@@ -120,18 +120,47 @@ namespace CampingRobledal
             else if (e.Key == Key.Enter) { e.Handled = true; Modificar(); }
         }
 
-        public void Nueva() { VentanaPrincipal.MostrarEstado("Nueva actividad: el formulario llega en la fase siguiente"); }
+        public void Nueva() => AbrirFormulario(null);
 
         public void Modificar()
         {
-            if (ActividadSeleccionada == null) return;
-            VentanaPrincipal.MostrarEstado("Modificar " + ActividadSeleccionada.Nombre + ": el formulario llega en la fase siguiente");
+            if (ActividadSeleccionada != null && btnModificarActividad.IsEnabled)
+                AbrirFormulario(ActividadSeleccionada);
+        }
+
+        private void AbrirFormulario(Actividad original)
+        {
+            var dialogo = new DialogoActividad(original) { Owner = Window.GetWindow(this) };
+            if (dialogo.ShowDialog() != true) return;
+
+            var actividad = dialogo.Actividad;
+            if (original == null)
+            {
+                DatosPrueba.Actividades.Add(actividad);
+                if (!vista.Contains(actividad)) btnLimpiarFiltros_Click(this, null);
+                dgActividades.SelectedItem = actividad;
+                dgActividades.ScrollIntoView(actividad);
+            }
+            ActualizarVista();
+            VentanaPrincipal.MostrarEstado($"Actividad {actividad.Nombre} guardada");
+        }
+
+        internal void ActualizarVista()
+        {
+            dgActividades.Items.Refresh();
+            dgActividades_SelectionChanged(dgActividades, null);
         }
 
         public void Eliminar()
         {
-            if (ActividadSeleccionada == null) return;
-            VentanaPrincipal.MostrarEstado("Eliminar " + ActividadSeleccionada.Nombre + ": la confirmación llega en la fase siguiente");
+            var actividad = ActividadSeleccionada;
+            if (actividad == null) return;
+            string mensaje = $"Se eliminará la actividad y se perderán sus {actividad.Inscritos} inscripciones.";
+            if (!VentanaConfirmacion.Confirmar(Window.GetWindow(this), $"¿Eliminar {actividad.Nombre}?", mensaje, "Eliminar")) return;
+
+            DatosPrueba.Actividades.Remove(actividad);
+            ActualizarVista();
+            VentanaPrincipal.MostrarEstado($"Actividad {actividad.Nombre} eliminada");
         }
 
         public void EnfocarBusqueda() { txtBuscarActividad.Focus(); txtBuscarActividad.SelectAll(); }

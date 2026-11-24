@@ -1,6 +1,8 @@
+using System.Linq;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -83,7 +85,6 @@ namespace CampingRobledal
                 (string.IsNullOrWhiteSpace(p.Observaciones) ? "" : "\n\nObservaciones: " + p.Observaciones);
         }
 
-        // Los diálogos de alta, modificación y confirmación llegan en la fase siguiente
         private void btnNuevaParcela_Click(object sender, RoutedEventArgs e) { Nueva(); }
         private void btnModificarParcela_Click(object sender, RoutedEventArgs e) { Modificar(); }
         private void btnEliminarParcela_Click(object sender, RoutedEventArgs e) { Eliminar(); }
@@ -108,18 +109,50 @@ namespace CampingRobledal
             VentanaPrincipal.MostrarEstado("La disponibilidad se abrirá desde aquí en una fase posterior");
         }
 
-        public void Nueva() { VentanaPrincipal.MostrarEstado("Nueva parcela: el formulario llega en la fase siguiente"); }
+        public void Nueva() => AbrirFormulario(null);
 
         public void Modificar()
         {
-            if (ParcelaSeleccionada == null) return;
-            VentanaPrincipal.MostrarEstado("Modificar " + ParcelaSeleccionada.Nombre + ": el formulario llega en la fase siguiente");
+            if (ParcelaSeleccionada != null && btnModificarParcela.IsEnabled)
+                AbrirFormulario(ParcelaSeleccionada);
+        }
+
+        private void AbrirFormulario(Parcela original)
+        {
+            var dialogo = new DialogoParcela(original) { Owner = Window.GetWindow(this) };
+            if (dialogo.ShowDialog() != true) return;
+
+            var parcela = dialogo.Parcela;
+            if (original == null)
+            {
+                DatosPrueba.Parcelas.Add(parcela);
+                if (!vista.Contains(parcela)) btnLimpiarFiltros_Click(this, null);
+                dgParcelas.SelectedItem = parcela;
+                dgParcelas.ScrollIntoView(parcela);
+            }
+            ActualizarVista();
+            VentanaPrincipal.MostrarEstado($"Parcela {parcela.Nombre} guardada");
+        }
+
+        internal void ActualizarVista()
+        {
+            dgParcelas.Items.Refresh();
+            dgParcelas_SelectionChanged(dgParcelas, null);
         }
 
         public void Eliminar()
         {
-            if (ParcelaSeleccionada == null) return;
-            VentanaPrincipal.MostrarEstado("Eliminar " + ParcelaSeleccionada.Nombre + ": la confirmación llega en la fase siguiente");
+            var parcela = ParcelaSeleccionada;
+            if (parcela == null) return;
+            var afectadas = DatosPrueba.Reservas.Where(r => r.Alojamiento == parcela).ToList();
+            int activas = afectadas.Count(r => r.Estado == EstadoReserva.Confirmada || r.Estado == EstadoReserva.CheckIn);
+            string mensaje = $"Se eliminará el alojamiento. Quedarán sin alojamiento {afectadas.Count} reservas, de las cuales {activas} están confirmadas o con check-in.";
+            if (!VentanaConfirmacion.Confirmar(Window.GetWindow(this), $"¿Eliminar {parcela.Nombre}?", mensaje, "Eliminar")) return;
+
+            foreach (var reserva in afectadas) reserva.Alojamiento = null;
+            DatosPrueba.Parcelas.Remove(parcela);
+            ActualizarVista();
+            VentanaPrincipal.MostrarEstado($"Parcela {parcela.Nombre} eliminada");
         }
 
         public void EnfocarBusqueda() { txtBuscarParcela.Focus(); txtBuscarParcela.SelectAll(); }
