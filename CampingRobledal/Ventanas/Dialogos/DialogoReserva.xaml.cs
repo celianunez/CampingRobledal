@@ -88,7 +88,7 @@ namespace CampingRobledal
             }
             Revisar(txtHoraEntrada, lblErrorHoraEntrada, string.IsNullOrWhiteSpace(txtHoraEntrada.Text) || Validacion.EsHora(txtHoraEntrada.Text), "Indica una hora válida, p. ej. 09:30.");
             Revisar(txtHoraSalida, lblErrorHoraSalida, string.IsNullOrWhiteSpace(txtHoraSalida.Text) || Validacion.EsHora(txtHoraSalida.Text), "Indica una hora válida, p. ej. 09:30.");
-            Revisar(txtOcupantes, lblErrorOcupantes, Validacion.TryEntero(txtOcupantes.Text, out _, false) && alojamiento != null && int.Parse(txtOcupantes.Text) <= alojamiento.Capacidad, "Indica un número positivo dentro de la capacidad, p. ej. 1.");
+            Revisar(txtOcupantes, lblErrorOcupantes, Validacion.TryEntero(txtOcupantes.Text, out int ocupantes, false) && alojamiento != null && ocupantes <= alojamiento.Capacidad, "Indica un número positivo dentro de la capacidad, p. ej. 1.");
             Revisar(txtNombre, lblErrorNombre, !string.IsNullOrWhiteSpace(txtNombre.Text), "Completa este campo, p. ej. Ana.");
             Revisar(txtApellidos, lblErrorApellidos, !string.IsNullOrWhiteSpace(txtApellidos.Text), "Completa este campo, p. ej. López.");
             Revisar(txtTelefono, lblErrorTelefono, Validacion.EsTelefono(txtTelefono.Text), "El teléfono debe tener 9 cifras, p. ej. 612345678.");

@@ -4,7 +4,7 @@
         Title="Confirmar" Width="460" MinWidth="420" MinHeight="180" SizeToContent="Height"
         WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
         Background="{StaticResource ColorFondo}" FontFamily="{StaticResource FuentePrincipal}"
-        FontSize="{StaticResource TamanoTexto}" Loaded="Window_Loaded">
+        FontSize="{StaticResource TamanoTexto}" Loaded="Window_Loaded" PreviewKeyDown="Window_PreviewKeyDown">
     <Grid Margin="20,16">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -23,7 +23,7 @@
             </StackPanel>
         </Grid>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
-            <Button x:Name="btnCancelar" Content="Cancelar" Style="{StaticResource BotonNeutro}" IsDefault="True" IsCancel="True"
+            <Button x:Name="btnCancelar" Content="Cancelar" Style="{StaticResource BotonNeutro}" IsDefault="True"
                     ToolTip="No hacer nada y volver (Esc)" Click="btnCancelar_Click"/>
             <Button x:Name="btnDescartar" Content="Salir sin guardar" Style="{StaticResource BotonPeligro}" Visibility="Collapsed"
                     ToolTip="Salir y perder los cambios" Click="btnDescartar_Click"/>

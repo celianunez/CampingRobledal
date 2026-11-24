@@ -23,6 +23,7 @@ namespace CampingRobledal
             vista.Filter = FiltrarMonitor;
             dgMonitores.ItemsSource = vista;
             cargado = true;
+            Loaded += (origen, evento) => ActualizarVista();
         }
 
         private bool FiltrarMonitor(object o)

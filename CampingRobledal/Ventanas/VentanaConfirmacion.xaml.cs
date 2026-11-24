@@ -22,6 +22,13 @@ namespace CampingRobledal
                 btnAccion.Style = (Style)FindResource("BotonPrincipal");
         }
 
+        private void Window_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key != System.Windows.Input.Key.Escape) return;
+            e.Handled = true;
+            Close();
+        }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             btnCancelar.Focus();

@@ -68,8 +68,8 @@ namespace CampingRobledal
             Revisar(txtHoraInicio, lblErrorHoraInicio, Validacion.EsHora(txtHoraInicio.Text), "Indica una hora válida, p. ej. 09:30.");
             Revisar(txtHoraFin, lblErrorHoraFin, Validacion.EsHora(txtHoraFin.Text) && (!Validacion.EsHora(txtHoraInicio.Text) || TimeSpan.Parse(txtHoraFin.Text.Trim()) > TimeSpan.Parse(txtHoraInicio.Text.Trim())), "Indica una hora posterior al inicio, p. ej. 12:30.");
             Revisar(txtCupoMinimo, lblErrorCupoMinimo, Validacion.TryEntero(txtCupoMinimo.Text, out _, false), "Escribe un número entero válido, p. ej. 2.");
-            Revisar(txtCupoMaximo, lblErrorCupoMaximo, Validacion.TryEntero(txtCupoMaximo.Text, out _, false) && (!Validacion.TryEntero(txtCupoMinimo.Text, out int minimo, false) || txtCupoMaximo.Text.Trim().Length > 0 && int.Parse(txtCupoMaximo.Text) >= minimo), "El cupo máximo debe cubrir el mínimo, p. ej. 12.");
-            Revisar(txtInscritos, lblErrorInscritos, Validacion.TryEntero(txtInscritos.Text, out _, true) && (!Validacion.TryEntero(txtCupoMaximo.Text, out int maximo, false) || int.Parse(txtInscritos.Text) <= maximo), "Indica entre cero y el cupo máximo, p. ej. 0.");
+            Revisar(txtCupoMaximo, lblErrorCupoMaximo, Validacion.TryEntero(txtCupoMaximo.Text, out int cupoMaximo, false) && (!Validacion.TryEntero(txtCupoMinimo.Text, out int minimo, false) || cupoMaximo >= minimo), "El cupo máximo debe cubrir el mínimo, p. ej. 12.");
+            Revisar(txtInscritos, lblErrorInscritos, Validacion.TryEntero(txtInscritos.Text, out int inscritos, true) && (!Validacion.TryEntero(txtCupoMaximo.Text, out int maximo, false) || inscritos <= maximo), "Indica entre cero y el cupo máximo, p. ej. 0.");
             Revisar(txtPrecioHora, lblErrorPrecioHora, Validacion.TryDecimal(txtPrecioHora.Text, out _), "Escribe un precio positivo, p. ej. 12,50.");
             Revisar(txtPrecioMes, lblErrorPrecioMes, string.IsNullOrWhiteSpace(txtPrecioMes.Text) || Validacion.TryDecimal(txtPrecioMes.Text, out _), "Escribe un precio positivo, p. ej. 12,50.");
             Revisar(cmbArea, lblErrorArea, cmbArea.SelectedIndex >= 0, "Selecciona un área, p. ej. Piscina.");

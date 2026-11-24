@@ -3,11 +3,11 @@ Actualizado el 24 de noviembre de 2026 · rama claude/camping-robledal-fases-0-1
 ## Objetivo
 Completar la fase 3 de altas, modificaciones y confirmaciones.
 ## Hecho (verificado)
-Implementados los formularios y conectadas las cinco tablas, sus confirmaciones y el cierre de sesión.
+Compilación Release correcta en Windows (.NET SDK 8.0.428). Prueba WPF de los cinco formularios nuevos, edición de reserva sin mutar el original, capacidad, solapamiento, estancias consecutivas y guardado modal superada.
 ## En curso
-Compilar el proyecto y verificar los flujos modales.
+Fase 3 implementada. La ventana de disponibilidad corresponde a la fase 4.
 ## Siguiente paso (exacto)
-Compilar el proyecto y verificar los flujos modales.
+Fase 3 implementada. La ventana de disponibilidad corresponde a la fase 4.
 ## Datos del entorno
 WPF para Windows, .NET 8.
 ## Decisiones tomadas (y por qué)

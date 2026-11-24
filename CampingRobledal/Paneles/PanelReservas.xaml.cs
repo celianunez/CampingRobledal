@@ -22,15 +22,11 @@ namespace CampingRobledal
             InitializeComponent();
 
             // Desplegable de alojamientos: "Todos" + todos los nombres
-            cmbFiltroAlojamiento.Items.Add("Todos");
-            foreach (Parcela p in DatosPrueba.Parcelas) cmbFiltroAlojamiento.Items.Add(p.Nombre);
-            foreach (Bungalow b in DatosPrueba.Bungalows) cmbFiltroAlojamiento.Items.Add(b.Nombre);
-            cmbFiltroAlojamiento.SelectedIndex = 0;
-
             vista = CollectionViewSource.GetDefaultView(DatosPrueba.Reservas);
             vista.Filter = FiltrarReserva;
             dgReservas.ItemsSource = vista;
             cargado = true;
+            Loaded += (origen, evento) => ActualizarVista();
         }
 
         private bool FiltrarReserva(object o)
@@ -74,6 +70,7 @@ namespace CampingRobledal
             lblFichaVaciaReserva.Visibility = hay ? Visibility.Collapsed : Visibility.Visible;
             if (!hay) return;
 
+            btnVerAlojamiento.IsEnabled = r.Alojamiento != null;
             btnCheckIn.IsEnabled = r.Estado == EstadoReserva.Confirmada;
             lblFichaNumeroReserva.Text = "Reserva " + r.Numero;
             lblFichaEstadoReserva.Text = r.TextoEstado;
@@ -100,6 +97,10 @@ namespace CampingRobledal
             Reserva r = ReservaSeleccionada;
             if (r == null || r.Estado != EstadoReserva.Confirmada) return;
             r.Estado = EstadoReserva.CheckIn;
+            var anteriorAlojamiento = cmbFiltroAlojamiento.SelectedItem as string;
+            var opcionesAlojamiento = new[] { "Todos" }.Concat(DatosPrueba.TodosLosAlojamientos().Select(a => a.Nombre)).ToList();
+            cmbFiltroAlojamiento.ItemsSource = opcionesAlojamiento;
+            cmbFiltroAlojamiento.SelectedItem = opcionesAlojamiento.Contains(anteriorAlojamiento) ? anteriorAlojamiento : "Todos";
             dgReservas.Items.Refresh();
             dgReservas_SelectionChanged(dgReservas, null);
             VentanaPrincipal.MostrarEstado("Check-in de la reserva " + r.Numero + " realizado");

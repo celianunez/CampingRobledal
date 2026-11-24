@@ -20,19 +20,11 @@ namespace CampingRobledal
         {
             InitializeComponent();
 
-            cmbFiltroArea.Items.Add("Todas");
-            foreach (string area in DatosPrueba.Actividades.Select(a => a.Area).Distinct().OrderBy(a => a))
-                cmbFiltroArea.Items.Add(area);
-            cmbFiltroArea.SelectedIndex = 0;
-
-            cmbFiltroMonitor.Items.Add("Todos");
-            foreach (Monitor m in DatosPrueba.Monitores) cmbFiltroMonitor.Items.Add(m.NombreCompleto);
-            cmbFiltroMonitor.SelectedIndex = 0;
-
             vista = CollectionViewSource.GetDefaultView(DatosPrueba.Actividades);
             vista.Filter = FiltrarActividad;
             dgActividades.ItemsSource = vista;
             cargado = true;
+            Loaded += (origen, evento) => ActualizarVista();
         }
 
         private bool FiltrarActividad(object o)
@@ -147,6 +139,14 @@ namespace CampingRobledal
 
         internal void ActualizarVista()
         {
+            var anteriorMonitor = cmbFiltroMonitor.SelectedItem as string;
+            var opcionesMonitor = new[] { "Todos" }.Concat(DatosPrueba.Monitores.Select(m => m.NombreCompleto)).ToList();
+            cmbFiltroMonitor.ItemsSource = opcionesMonitor;
+            cmbFiltroMonitor.SelectedItem = opcionesMonitor.Contains(anteriorMonitor) ? anteriorMonitor : "Todos";
+            var anteriorArea = cmbFiltroArea.SelectedItem as string;
+            var opcionesArea = new[] { "Todas" }.Concat(DatosPrueba.Actividades.Select(a => a.Area).Distinct().OrderBy(a => a)).ToList();
+            cmbFiltroArea.ItemsSource = opcionesArea;
+            cmbFiltroArea.SelectedItem = opcionesArea.Contains(anteriorArea) ? anteriorArea : "Todas";
             dgActividades.Items.Refresh();
             dgActividades_SelectionChanged(dgActividades, null);
         }
