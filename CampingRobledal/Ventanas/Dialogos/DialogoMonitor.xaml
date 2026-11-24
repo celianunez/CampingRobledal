@@ -151,6 +151,7 @@
                 <TextBlock Text="Inicio" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
                 <StackPanel Grid.Column="1">
                     <DatePicker x:Name="dpInicioContrato" ToolTip="Primer día de contrato" SelectedDateChanged="Campo_Cambiado" LostFocus="Campo_LostFocus" Width="160" HorizontalAlignment="Left"/>
+                    <TextBlock x:Name="lblErrorInicio" Style="{StaticResource TextoError}"/>
                 </StackPanel>
             </Grid>
             <Grid Margin="0,4">

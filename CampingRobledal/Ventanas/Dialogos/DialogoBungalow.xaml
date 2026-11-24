@@ -34,7 +34,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Tipo *" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
                 <StackPanel Grid.Column="1">
-                    <ComboBox x:Name="cmbTipo" ToolTip="Tipo de bungalow" SelectionChanged="Campo_Cambiado" Width="220" HorizontalAlignment="Left"><ComboBoxItem Content="Estándar"/><ComboBoxItem Content="Familiar"/><ComboBoxItem Content="Premium"/></ComboBox>
+                    <ComboBox x:Name="cmbTipo" ToolTip="Tipo de bungalow" SelectionChanged="Campo_Cambiado" LostFocus="Campo_LostFocus" Width="220" HorizontalAlignment="Left"><ComboBoxItem Content="Estándar"/><ComboBoxItem Content="Familiar"/><ComboBoxItem Content="Premium"/></ComboBox>
                     <TextBlock x:Name="lblErrorTipo" Style="{StaticResource TextoError}"/>
                 </StackPanel>
             </Grid>
@@ -45,7 +45,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Estado" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
                 <StackPanel Grid.Column="1">
-                    <ComboBox x:Name="cmbEstado" ToolTip="Estado actual del bungalow" SelectionChanged="Campo_Cambiado" Width="220" HorizontalAlignment="Left"><ComboBoxItem Content="Libre"/><ComboBoxItem Content="Ocupado"/><ComboBoxItem Content="Reservado"/><ComboBoxItem Content="En reparación"/><ComboBoxItem Content="Pendiente de limpieza"/></ComboBox>
+                    <ComboBox x:Name="cmbEstado" ToolTip="Estado actual del bungalow" SelectionChanged="Campo_Cambiado" LostFocus="Campo_LostFocus" Width="220" HorizontalAlignment="Left"><ComboBoxItem Content="Libre"/><ComboBoxItem Content="Ocupado"/><ComboBoxItem Content="Reservado"/><ComboBoxItem Content="En reparación"/><ComboBoxItem Content="Pendiente de limpieza"/></ComboBox>
                 </StackPanel>
             </Grid>
             <Grid Margin="0,4">

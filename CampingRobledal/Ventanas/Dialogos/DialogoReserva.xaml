@@ -22,7 +22,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Alojamiento *" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
                 <StackPanel Grid.Column="1">
-                    <ComboBox x:Name="cmbAlojamiento" ToolTip="Parcela o bungalow que se reserva" DisplayMemberPath="Nombre" SelectionChanged="Campo_Cambiado" Width="260" HorizontalAlignment="Left"/>
+                    <ComboBox x:Name="cmbAlojamiento" ToolTip="Parcela o bungalow que se reserva" DisplayMemberPath="Nombre" SelectionChanged="Campo_Cambiado" LostFocus="Campo_LostFocus" Width="260" HorizontalAlignment="Left"/>
                     <TextBlock x:Name="lblErrorAlojamiento" Style="{StaticResource TextoError}"/>
                 </StackPanel>
             </Grid>
@@ -80,6 +80,7 @@
                 <TextBlock Text="Ocupantes *" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
                 <StackPanel Grid.Column="1">
                     <TextBox x:Name="txtOcupantes" ToolTip="Número de personas, p. ej. 4" TextChanged="Campo_TextChanged" LostFocus="Campo_LostFocus" Width="80" HorizontalAlignment="Left"/>
+                    <TextBlock x:Name="lblCapacidad" Style="{StaticResource TextoAyuda}"/>
                     <TextBlock x:Name="lblErrorOcupantes" Style="{StaticResource TextoError}"/>
                 </StackPanel>
             </Grid>

@@ -34,7 +34,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Categoría *" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
                 <StackPanel Grid.Column="1">
-                    <ComboBox x:Name="cmbCategoria" ToolTip="Categoría de la parcela" SelectionChanged="Campo_Cambiado" Width="220" HorizontalAlignment="Left"><ComboBoxItem Content="Pequeña"/><ComboBoxItem Content="Mediana"/><ComboBoxItem Content="Grande"/><ComboBoxItem Content="Premium"/></ComboBox>
+                    <ComboBox x:Name="cmbCategoria" ToolTip="Categoría de la parcela" SelectionChanged="Campo_Cambiado" LostFocus="Campo_LostFocus" Width="220" HorizontalAlignment="Left"><ComboBoxItem Content="Pequeña"/><ComboBoxItem Content="Mediana"/><ComboBoxItem Content="Grande"/><ComboBoxItem Content="Premium"/></ComboBox>
                     <TextBlock x:Name="lblErrorCategoria" Style="{StaticResource TextoError}"/>
                 </StackPanel>
             </Grid>
@@ -45,7 +45,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Estado" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
                 <StackPanel Grid.Column="1">
-                    <ComboBox x:Name="cmbEstado" ToolTip="Estado actual de la parcela" SelectionChanged="Campo_Cambiado" Width="220" HorizontalAlignment="Left"><ComboBoxItem Content="Libre"/><ComboBoxItem Content="Ocupado"/><ComboBoxItem Content="Reservado"/><ComboBoxItem Content="En reparación"/><ComboBoxItem Content="Pendiente de limpieza"/></ComboBox>
+                    <ComboBox x:Name="cmbEstado" ToolTip="Estado actual de la parcela" SelectionChanged="Campo_Cambiado" LostFocus="Campo_LostFocus" Width="220" HorizontalAlignment="Left"><ComboBoxItem Content="Libre"/><ComboBoxItem Content="Ocupado"/><ComboBoxItem Content="Reservado"/><ComboBoxItem Content="En reparación"/><ComboBoxItem Content="Pendiente de limpieza"/></ComboBox>
                 </StackPanel>
             </Grid>
             <Grid Margin="0,4">

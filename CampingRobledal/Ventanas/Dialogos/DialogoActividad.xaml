@@ -60,7 +60,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Área *" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,10,0"/>
                 <StackPanel Grid.Column="1">
-                    <ComboBox x:Name="cmbArea" ToolTip="Zona del camping donde se realiza" SelectionChanged="Campo_Cambiado" Width="220" HorizontalAlignment="Left"><ComboBoxItem Content="Piscina"/><ComboBoxItem Content="Montaña"/><ComboBoxItem Content="Sala de juegos"/><ComboBoxItem Content="Pista deportiva"/><ComboBoxItem Content="Anfiteatro"/><ComboBoxItem Content="Zona infantil"/></ComboBox>
+                    <ComboBox x:Name="cmbArea" ToolTip="Zona del camping donde se realiza" SelectionChanged="Campo_Cambiado" LostFocus="Campo_LostFocus" Width="220" HorizontalAlignment="Left"><ComboBoxItem Content="Piscina"/><ComboBoxItem Content="Montaña"/><ComboBoxItem Content="Sala de juegos"/><ComboBoxItem Content="Pista deportiva"/><ComboBoxItem Content="Anfiteatro"/><ComboBoxItem Content="Zona infantil"/></ComboBox>
                     <TextBlock x:Name="lblErrorArea" Style="{StaticResource TextoError}"/>
                 </StackPanel>
             </Grid>
